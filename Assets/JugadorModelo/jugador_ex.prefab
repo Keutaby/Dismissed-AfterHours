@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 480090577452760242}
   - component: {fileID: 7707809403368909582}
   - component: {fileID: 5054519206743590634}
-  - component: {fileID: 1434823724779224507}
   - component: {fileID: 3611397417896780398}
   - component: {fileID: 3722276630220700509}
   - component: {fileID: 1641358142467464000}
@@ -119,21 +118,6 @@ CapsuleCollider:
   m_Height: 1.9899398
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1434823724779224507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3109094267647523009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4b5ff4fa7858432d97ef0dda01a4482, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::JugadorMovimiento
-  velocidad_movimiento: 0.6
-  velocidad_rotacion: 1
-  mapaUI: {fileID: 0}
 --- !u!143 &3611397417896780398
 CharacterController:
   m_ObjectHideFlags: 0
