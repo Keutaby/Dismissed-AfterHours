@@ -55,6 +55,6 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _pcolor: {r: 1, g: 0.28523493, b: 0, a: 1}
-    - _potencia: {r: 0.87, g: 0, b: 0, a: 0}
+    - _potencia: {r: 0.53, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
