@@ -3,21 +3,28 @@ using UnityEngine.UI;
 
 public class ControladorBarraSalud : MonoBehaviour
 {
+    [Header("Referencias del Sistema de Salud")]
     public SistemaSalud sistemaSaludTarget;
-    private Slider barra;
+
+    [Header("Referencias de UI")]
+    [Tooltip("Arrastra aquí el GameObject 'Health_Mask' que tiene el componente Image en modo Filled.")]
+    public Image mascaraSalud;
 
     void Awake()
     {
-        barra = GetComponent<Slider>();
-        barra.minValue = 0f;
-        barra.maxValue = 1f;
+        // Si no asignaste la máscara desde el inspector, intenta buscarla en este objeto
+        if (mascaraSalud == null)
+        {
+            mascaraSalud = GetComponent<Image>();
+        }
     }
 
     void Start()
     {
-        if (barra != null)
+        // Inicializamos la máscara llena al 100% (1.0f)
+        if (mascaraSalud != null)
         {
-            barra.value = 1f;
+            mascaraSalud.fillAmount = 1f;
         }
     }
 
@@ -35,7 +42,10 @@ public class ControladorBarraSalud : MonoBehaviour
 
     private void ActualizarBarra(float porcentaje)
     {
-        if (barra != null)
-            barra.value = porcentaje;
+        if (mascaraSalud != null)
+        {
+            // Ajustamos el nivel de la máscara según el porcentaje de salud (entre 0 y 1)
+            mascaraSalud.fillAmount = Mathf.Clamp01(porcentaje);
+        }
     }
 }

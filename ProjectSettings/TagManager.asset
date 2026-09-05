@@ -7,6 +7,7 @@ TagManager:
   - punto_patrullaje
   - jugador
   - interactuable
+  - punto
   layers:
   - Default
   - TransparentFX
