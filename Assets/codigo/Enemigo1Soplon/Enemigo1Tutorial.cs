@@ -43,19 +43,12 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
     public float distanciaAtaque = 4f;
     public LayerMask capaCobertura;
 
-    [Header("Ataque de Área")]
     public GameObject zonaAtaqueVisual;
     private bool ejecutandoAtaque = false;
-
-    [Header("Combate / Salud")]
-    [Tooltip("Daño que recibe el fantasma cada vez que el flash le impacta.")]
-    public float danoPorFlash = 25f;
-    private SistemaSalud sistemaSalud;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        sistemaSalud = GetComponent<SistemaSalud>();
         puntos_patrullaje = GameObject.FindGameObjectsWithTag("punto_patrullaje");
 
         if (transformaJugador == null)
@@ -162,6 +155,7 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
             agent.SetDestination(transformaJugador.position);
         }
 
+        // Continuously checks if it can ignite a new attack circle
         IniciarModoAtaque();
 
         if (jugadorEscapa())
@@ -248,6 +242,7 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
             agent.isStopped = false;
         }
 
+        // Trigger the attack circle ONCE when entering attack mode
         if (nuevoEstado == EstadoEnemigo.ataque)
         {
             IniciarModoAtaque();
@@ -258,15 +253,8 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
         }
     }
 
-    // Este método es invocado por el Raycast del script FlashCel
     public void DeslumbradoPorFlash()
     {
-        // Aplica daño a través del componente SistemaSalud del fantasma
-        if (sistemaSalud != null)
-        {
-            sistemaSalud.RecibirDano(danoPorFlash);
-        }
-
         if (estadoActual == EstadoEnemigo.ataque)
         {
             CambiarEstado(EstadoEnemigo.impactado);
@@ -289,7 +277,6 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
         if (puntos_patrullaje != null && puntos_patrullaje.Length > 0 && agent != null)
         {
             agent.isStopped = false;
-
             if (!agent.hasPath || agent.remainingDistance < 0.5f)
             {
                 int puntoAleatorio = Random.Range(0, puntos_patrullaje.Length);
@@ -360,18 +347,22 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
     {
         ejecutandoAtaque = true;
 
+        // 1. Show attack circle visual & activate trigger
         if (zonaAtaqueVisual != null)
         {
             zonaAtaqueVisual.SetActive(true);
         }
 
+        // 2. Keep attack active for 3 seconds
         yield return new WaitForSeconds(3.0f);
 
+        // 3. Hide attack circle
         if (zonaAtaqueVisual != null)
         {
             zonaAtaqueVisual.SetActive(false);
         }
 
+        // 4. Cooldown pause before ghost can ignite the ring again
         yield return new WaitForSeconds(1.5f);
 
         ejecutandoAtaque = false;
@@ -380,12 +371,10 @@ public class Enemigo1Tutorial : MonoBehaviour, MonitorMuerte
     public void procesar_muerte()
     {
         StopAllCoroutines();
-
         if (zonaAtaqueVisual != null)
         {
             zonaAtaqueVisual.SetActive(false);
         }
-
         Debug.Log("[Fantasma] ¡Ha sido derrotado!");
         gameObject.SetActive(false);
     }
