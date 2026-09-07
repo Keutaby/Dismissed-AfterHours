@@ -34,8 +34,8 @@ ModelImporter:
       name: clip
       takeName: clip
       internalID: -4671056281497532287
-      firstFrame: 0
-      lastFrame: 200
+      firstFrame: 7
+      lastFrame: 188
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

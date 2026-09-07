@@ -7,12 +7,14 @@ public class ControladorBarraSalud : MonoBehaviour
     public SistemaSalud sistemaSaludTarget;
 
     [Header("Referencias de UI")]
-    [Tooltip("Arrastra aquí el GameObject 'Health_Mask' que tiene el componente Image en modo Filled.")]
+    [Tooltip("Arrastra aquí la imagen intacta (HealthGood).")]
     public Image mascaraSalud;
+
+    [Tooltip("Arrastra aquí la imagen rota (HealthDestroyed).")]
+    public Image imagenDestruida;
 
     void Awake()
     {
-        // Si no asignaste la máscara desde el inspector, intenta buscarla en este objeto
         if (mascaraSalud == null)
         {
             mascaraSalud = GetComponent<Image>();
@@ -21,11 +23,7 @@ public class ControladorBarraSalud : MonoBehaviour
 
     void Start()
     {
-        // Inicializamos la máscara llena al 100% (1.0f)
-        if (mascaraSalud != null)
-        {
-            mascaraSalud.fillAmount = 1f;
-        }
+        ActualizarBarra(1f);
     }
 
     void OnEnable()
@@ -42,10 +40,18 @@ public class ControladorBarraSalud : MonoBehaviour
 
     private void ActualizarBarra(float porcentaje)
     {
+        float saludNormalizada = Mathf.Clamp01(porcentaje);
+
+        // La imagen intacta muestra la salud restante (ej: 0.7 de izquierda a derecha)
         if (mascaraSalud != null)
         {
-            // Ajustamos el nivel de la máscara según el porcentaje de salud (entre 0 y 1)
-            mascaraSalud.fillAmount = Mathf.Clamp01(porcentaje);
+            mascaraSalud.fillAmount = saludNormalizada;
+        }
+
+        // La imagen destruida muestra el daño (1 - salud, ej: 0.3 de derecha a izquierda)
+        if (imagenDestruida != null)
+        {
+            imagenDestruida.fillAmount = 1f - saludNormalizada;
         }
     }
 }
