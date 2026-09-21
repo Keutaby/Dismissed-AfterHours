@@ -11,11 +11,9 @@ public enum EstadosMovimiento {
 [RequireComponent(typeof(PlayerInput))]
 public class JugadorMovimiento : MonoBehaviour
 {
-    [Header("Velocidades")]
     public float velocidad_movimiento = 0.5f;
     public float velocidad_rotacion = 1.0f;
 
-    [Header("Interacción y UI")]
     public float distanciaInteraccion = 2.5f;
     public Transform manoJugador;
     public GameObject mapaUI;
@@ -89,12 +87,10 @@ public class JugadorMovimiento : MonoBehaviour
     {
         if (indicacionDireccion == null) return;
 
-        //cast a Ray from the Main Camera straight forward
         Ray rayo = new Ray(indicacionDireccion.position, indicacionDireccion.forward);
 
         if (Physics.Raycast(rayo, out RaycastHit hit, distanciaInteraccion))
         {
-            //check InteractuableComportamiento component
             InteractuableComportamiento objetoInteractuable = hit.collider.GetComponent<InteractuableComportamiento>();
 
             if (objetoInteractuable != null)

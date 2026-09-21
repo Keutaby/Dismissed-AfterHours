@@ -24,13 +24,11 @@ public class DetectorInteraccion : MonoBehaviour
 
     void Update()
     {
-        // 1. Raycast for ground phone if we haven't picked it up yet
         if (!tieneTelefono)
         {
             ComprobarMiradaTelefono();
         }
 
-        // 2. Keep flash text visible UNTIL the player presses F or Left-Click
         if (esperandoUsoFlash)
         {
             if (Input.GetKeyDown(KeyCode.F) || Input.GetMouseButtonDown(0))
@@ -50,7 +48,6 @@ public class DetectorInteraccion : MonoBehaviour
             {
                 objetoAptos = hit.collider.gameObject;
 
-                // Show pickup prompt ONLY if tutorial isn't marked completed
                 if (PlayerPrefs.GetInt("TutorialCompletado", 0) == 0)
                 {
                     MostrarTexto("[E] Recoger Teléfono");
@@ -74,7 +71,6 @@ public class DetectorInteraccion : MonoBehaviour
     {
         tieneTelefono = true;
 
-        // Parent the desk phone to the hand transform
         if (objetoAptos != null && manoTransform != null)
         {
             objetoAptos.transform.SetParent(manoTransform);
@@ -85,7 +81,6 @@ public class DetectorInteraccion : MonoBehaviour
             if (col != null) col.enabled = false;
         }
 
-        // Only show flash tutorial if the player hasn't done it before
         if (PlayerPrefs.GetInt("TutorialCompletado", 0) == 0)
         {
             MostrarTexto("[F] / [Clic Izq] Usar Flash");
@@ -102,7 +97,6 @@ public class DetectorInteraccion : MonoBehaviour
         esperandoUsoFlash = false;
         OcultarTexto();
 
-        // Save that the player completed the tutorial so it never shows again on death
         PlayerPrefs.SetInt("TutorialCompletado", 1);
         PlayerPrefs.Save();
     }
