@@ -29,7 +29,7 @@ public class BotonMenu : MonoBehaviour, ISelectHandler, IDeselectHandler, IPoint
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        // Si el cursor salió del botón, quitamos la selección
+        // Si el cursor salio del boton, quitamos la seleccion
         if (EventSystem.current.currentSelectedGameObject == gameObject)
         {
             EventSystem.current.SetSelectedGameObject(null);

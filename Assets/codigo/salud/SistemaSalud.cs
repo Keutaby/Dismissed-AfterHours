@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Needed to reload scenes
+using UnityEngine.SceneManagement;
 
 public class SistemaSalud : MonoBehaviour
 {
@@ -26,8 +26,7 @@ public class SistemaSalud : MonoBehaviour
 
         if (saludActual <= 0)
         {
-            // If the object taking fatal damage is the player, restart the level
-            if (gameObject.CompareTag("Player") || gameObject.name.Contains("jugador"))
+            if (gameObject.CompareTag("jugador") || gameObject.name.Contains("jugador"))
             {
                 ReiniciarNivel();
             }
@@ -41,7 +40,6 @@ public class SistemaSalud : MonoBehaviour
     public void ReiniciarNivel()
     {
         Debug.Log("[SistemaSalud] El jugador ha muerto. Reiniciando el nivel...");
-        // Gets the currently active scene index and reloads it
         int escenaActual = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(escenaActual);
     }

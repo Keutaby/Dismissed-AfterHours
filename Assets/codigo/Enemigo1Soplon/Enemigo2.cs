@@ -3,42 +3,24 @@ using UnityEngine.AI;
 using UnityEngine.InputSystem;
 using System.Collections;
 
-
-
 public class Enemigo2 : MonoBehaviour, MonitorMuerte
-
 {
-
     public enum EstadoEnemigo
     {
-
         vigilancia,
-
         sospecha,
-
         ataque,
-
         persecucion,
-
         huida,
-
         impactado,
-
         grito,
-
         desaparece,
-
         neutraliza
-
     }
-
-
 
     public EstadoEnemigo estadoActual
     {
-
         get => _estadoActual;
-
         set
         {
 
@@ -47,169 +29,87 @@ public class Enemigo2 : MonoBehaviour, MonitorMuerte
             alCambiarEstado?.Invoke(_estadoActual);
 
         }
-
     }
 
-
-
     [SerializeField]
-
     private EstadoEnemigo _estadoActual = EstadoEnemigo.vigilancia;
-
-
-
     public delegate void CambioEstadoHandler(EstadoEnemigo nuevoEstado);
 
     public event CambioEstadoHandler alCambiarEstado;
-
-
-
     public Transform transformaJugador;
-
     private NavMeshAgent agent;
-
     private GameObject[] punto;
 
-
-
     public float rangoVision = 8f;
-
     public float distanciaLejos = 15f;
-
     public float distanciaAtaque = 4f;
-
     public LayerMask capaCobertura;
-
-
-
     public GameObject zonaAtaqueVisual;
-
     private bool ejecutandoAtaque = false;
 
-
-
     void Start()
-
     {
-
         agent = GetComponent<NavMeshAgent>();
-
         punto = GameObject.FindGameObjectsWithTag("punto");
-
-
 
         if (transformaJugador == null)
         {
-
             try
             {
-
                 GameObject jugadorObj = GameObject.FindGameObjectWithTag("jugador");
-
                 if (jugadorObj != null)
                 {
-
                     transformaJugador = jugadorObj.transform;
-
                 }
-
             }
-
             catch
             {
-
-                // no tag found yet
-
+                // no tag yet
             }
-
         }
-
     }
-
-
 
     public void IniciarModoAtaque()
-
     {
-
         if (!ejecutandoAtaque && estadoActual == EstadoEnemigo.ataque)
-
         {
-
             StartCoroutine(RutinaAtaqueArea());
-
         }
-
     }
 
-
-
     void Update()
-
     {
-
         switch (estadoActual)
-
         {
-
             case EstadoEnemigo.vigilancia:
-
                 ModoVigilancia();
-
                 break;
-
-
 
             case EstadoEnemigo.sospecha:
-
                 ModoSospecha();
-
                 break;
-
-
 
             case EstadoEnemigo.ataque:
-
                 ModoAtaque();
-
                 break;
-
-
 
             case EstadoEnemigo.persecucion:
-
                 ModoPersecucion();
-
                 break;
-
-
 
             case EstadoEnemigo.huida:
-
                 ModoHuida();
-
                 break;
-
-
 
             case EstadoEnemigo.impactado:
-
                 ModoImpactado();
-
                 break;
-
-
 
             case EstadoEnemigo.grito:
-
                 ModoGrito();
-
                 break;
 
-
-
             case EstadoEnemigo.desaparece:
-
                 ModoDesaparece();
 
                 break;
@@ -702,7 +602,7 @@ public class Enemigo2 : MonoBehaviour, MonitorMuerte
 
         }
 
-        Debug.Log("[Fantasma] ¡Ha sido derrotado!");
+        Debug.Log("[Fantasma] ï¿½Ha sido derrotado!");
 
         gameObject.SetActive(false);
 

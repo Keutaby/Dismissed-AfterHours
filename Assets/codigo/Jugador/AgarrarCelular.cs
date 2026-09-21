@@ -24,7 +24,6 @@ public class AgarrarCelular : MonoBehaviour
 
         float distancia = Vector3.Distance(transform.position, jugadorTransform.position);
 
-        // Check if player is close enough and presses E (or interaction key)
         Keyboard keyboard = Keyboard.current;
         if (distancia <= distanciaInteraccion && keyboard != null && keyboard.eKey.wasPressedThisFrame)
         {
@@ -35,8 +34,6 @@ public class AgarrarCelular : MonoBehaviour
     void Agarrar()
     {
         agarrado = true;
-
-        // Parent phone to player's hand or disable table object
         if (manoJugador != null)
         {
             transform.SetParent(manoJugador);
@@ -45,7 +42,7 @@ public class AgarrarCelular : MonoBehaviour
         }
         else
         {
-            gameObject.SetActive(false); // Hide object if inventory handles it
+            gameObject.SetActive(false); // Hide object
         }
 
         Debug.Log("[Tutorial] Celular obtenido. Listo para el lobby.");
