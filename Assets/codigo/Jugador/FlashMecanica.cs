@@ -11,6 +11,8 @@ public class FlashMecanica : MonoBehaviour
     private bool tieneTelefono = false;
     private bool flashEncendido = false;
 
+
+
     void Start()
     {
         if (camaraTransform == null && Camera.main != null)

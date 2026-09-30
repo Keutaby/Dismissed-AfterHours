@@ -9,6 +9,8 @@ public class FlashCel : MonoBehaviour
     public float DistanciaFlash = 5f;
     public LayerMask enemyLayer;
 
+   
+
     /*// Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +22,7 @@ public class FlashCel : MonoBehaviour
     {
         if(botonFlashAction.action != null && botonFlashAction.action.WasPressedThisFrame()){
             UsarFlashCel();
+            
         }
     }
 

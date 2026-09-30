@@ -31,6 +31,8 @@ public class JugadorMovimiento : MonoBehaviour
     private InputAction saltar;
     private Transform indicacionDireccion;
 
+    public AudioSource pasos;
+
     void Start()
     {
         entradasDelJugador = GetComponent<PlayerInput>();
@@ -111,10 +113,12 @@ public class JugadorMovimiento : MonoBehaviour
         {
             CambiarEstado(EstadosMovimiento.caminando);
             Avanzar(direccion);
+           
         }
         else
         {
             CambiarEstado(EstadosMovimiento.quieto);
+            pasos.Play();
         }
     }
 
