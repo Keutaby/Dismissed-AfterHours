@@ -13,16 +13,22 @@ public class AtaqueRegla : MonoBehaviour
     private GameObject reglaEnMano;
     private bool tieneRegla = false;
     private float tiempoProximoAtaque = 0f;
+    private ManejoObjetosEnMano manejoMano;
+
+    void Start()
+    {
+        manejoMano = GetComponent<ManejoMano>();
+    }
 
     void Update()
     {
-        if(!tieneRegla)
+        if (!tieneRegla)
         {
             ComprobarRecogerRegla();
             return;
         }
 
-        if(Input.GetMouseButtonDown(0) && Time.time >= tiempoProximoAtaque)
+        if (Input.GetMouseButtonDown(0) && Time.time >= tiempoProximoAtaque)
         {
             AtacarConRegla();
             tiempoProximoAtaque = Time.time + tiempoEntreAtaques;
@@ -31,15 +37,15 @@ public class AtaqueRegla : MonoBehaviour
 
     void ComprobarRecogerRegla()
     {
+        if (manejoMano != null && manejoMano.TieneObjetoEnMano()) return;
+
         Ray rayo = new Ray(transform.position, transform.forward);
 
-        if(Physics.Raycast(rayo, out RaycastHit hit, 3f))
+        if (Physics.Raycast(rayo, out RaycastHit hit, 3f))
         {
-            if(hit.collider.CompareTag("Interactuable") || hit.collider.gameObject.name.ToLower().Contains("regla"))
+            if (hit.collider.CompareTag("interactuable") || hit.collider.gameObject.name.ToLower().Contains("regla"))
             {
-                //Show prompt "[E] Recoger Regla" via your UI manager
-
-                if(Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.E))
                 {
                     EquiparRegla(hit.collider.gameObject);
                 }
@@ -52,38 +58,38 @@ public class AtaqueRegla : MonoBehaviour
         tieneRegla = true;
         reglaEnMano = regla;
 
-        if(manoTransform != null)
+        if (manoTransform != null)
         {
             reglaEnMano.transform.SetParent(manoTransform);
             reglaEnMano.transform.localPosition = Vector3.zero;
             reglaEnMano.transform.localRotation = Quaternion.identity;
+
+            Rigidbody rulerRb = reglaEnMano.GetComponent<Rigidbody>();
+            if (rulerRb != null) rulerRb.isKinematic = true;
         }
 
         Collider col = reglaEnMano.GetComponent<Collider>();
-        if(col != null) col.enabled = false;
+        if (col != null) col.enabled = false;
 
-        Debug.Log("[AtaqueRegla] ¡Regla equipada! Lista para atacar.");
+        Debug.Log("Regla equipada.");
     }
 
     void AtacarConRegla()
     {
-        Debug.Log("[AtaqueRegla] ¡Ataque con regla!");
+        Debug.Log("Atacando con regla...");
+        Debug.DrawRay(transform.position, transform.forward * alcanceAtaque, Color.yellow, 1.0f);
 
         Ray rayo = new Ray(transform.position, transform.forward);
 
-        if(Physics.Raycast(rayo, out RaycastHit hit, alcanceAtaque, capaEnemigo))
+        if (Physics.SphereCast(rayo, 0.4f, out RaycastHit hit, alcanceAtaque, capaEnemigo))
         {
-            Enemigo1Tutorial fantasma = hit.collider.GetComponentInParent<Enemigo1Tutorial>();
-            
-            if(fantasma != null)
-            {
-                Debug.Log("[AtaqueRegla] ¡Golpaste al fantasma con la regla!");
+            Debug.Log("Objeto impactado: " + hit.collider.gameObject.name);
 
-                SistemaSalud salud = fantasma.GetComponent<SistemaSalud>();
-                if(salud != null)
-                {
-                    salud.RecibirDano(danoRegla);
-                }
+            SistemaSalud salud = hit.collider.GetComponentInParent<SistemaSalud>();
+            if (salud != null)
+            {
+                salud.RecibirDano(danoRegla);
+                Debug.Log("Daño infligido al fantasma!");
             }
         }
     }

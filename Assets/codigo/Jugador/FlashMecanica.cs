@@ -50,7 +50,6 @@ public class FlashMecanica : MonoBehaviour
     public void UsarFlash()
     {
         Debug.Log("[FlashMecanica] Flash activado!");
-        // Toggles the Spotlight visual on and off
         if (luzTelefono != null)
         {
             luzTelefono.enabled = !luzTelefono.enabled;
@@ -69,11 +68,10 @@ public class FlashMecanica : MonoBehaviour
                 Debug.Log("[FlashMecanica] ¡Fantasma impactado!");
                 fantasma.DeslumbradoPorFlash();
                 
-                // Apply damage to health bar
                 SistemaSalud saludGhost = fantasma.GetComponent<SistemaSalud>();
                 if (saludGhost != null)
                 {
-                    saludGhost.RecibirDano(20); // Drains 20 HP per flash
+                    saludGhost.RecibirDano(20);
                 }
             }
         }
