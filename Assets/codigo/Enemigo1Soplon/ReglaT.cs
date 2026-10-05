@@ -17,7 +17,7 @@ public class AtaqueRegla : MonoBehaviour
 
     void Start()
     {
-        manejoMano = GetComponent<ManejoMano>();
+        manejoMano = GetComponent<ManejoObjetosEnMano>();
     }
 
     void Update()

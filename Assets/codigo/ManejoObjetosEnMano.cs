@@ -54,7 +54,7 @@ public class ManejoObjetosEnMano : MonoBehaviour
         }
 
         if (flashScript != null) flashScript.enabled = false;
-        if (reglaScript != null) reglaScript.DesactivarRegla();
+        //if (reglaScript != null) reglaScript.DesactivarRegla();
 
         Debug.Log("Objeto soltado y mano vacía.");
     }
