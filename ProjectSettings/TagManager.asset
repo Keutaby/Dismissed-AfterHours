@@ -8,6 +8,7 @@ TagManager:
   - jugador
   - interactuable
   - punto
+  - credencial
   layers:
   - Default
   - TransparentFX

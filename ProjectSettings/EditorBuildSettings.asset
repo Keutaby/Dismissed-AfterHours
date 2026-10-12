@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Juego.unity
     guid: 689db055d337dd748a4850f19c5757ef
   - enabled: 1
+    path: Assets/Scenes/prueba ordas.unity
+    guid: 697e5ecab9545b14bb63b520b7966d76
+  - enabled: 1
     path: Assets/Scenes/Intro.unity
     guid: 563daaf01ab657a479ee845bb5c98d77
   - enabled: 1
