@@ -1,73 +1,54 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
 public class FlashMecanica : MonoBehaviour
 {
-    public float alcanceFlash = 10f;
-    public float anguloFlash = 45f;
-    public LayerMask capaEnemigo;
     public Light luzTelefono;
-    public Transform camaraTransform;
-    private bool tieneTelefono = false;
-    private bool flashEncendido = false;
+    public float alcanceFlash = 10f;
+    public LayerMask capaEnemigo;
 
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
 
-
-    void Start()
+    void Awake()
     {
-        if (camaraTransform == null && Camera.main != null)
-        {
-            camaraTransform = Camera.main.transform;
-        }
-
-        if (luzTelefono != null)
-        {
-            luzTelefono.enabled = false;
-        }
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
     }
 
-    public void EquiparTelefono()
+    void OnEnable()
     {
-        tieneTelefono = true;
-
-        Debug.Log("[FlashlightMechanic] Celular equipado. Flash listo.");
+        grabInteractable.activated.AddListener(AlternarFlash);
+        grabInteractable.selectExited.AddListener(OnSoltar);
     }
 
-    void Update()
+    void OnDisable()
     {
-        Keyboard keyboard = Keyboard.current;
-        Mouse mouse = Mouse.current;
-
-        bool fPressed = keyboard != null && keyboard.fKey.wasPressedThisFrame;
-        bool leftClickPressed = mouse != null && mouse.leftButton.wasPressedThisFrame;
-
-        if (fPressed || leftClickPressed)
-        {
-            UsarFlash();
-        }
+        grabInteractable.activated.RemoveListener(AlternarFlash);
+        grabInteractable.selectExited.RemoveListener(OnSoltar);
     }
 
-    public void UsarFlash()
+    private void AlternarFlash(ActivateEventArgs args)
     {
-        Debug.Log("[FlashMecanica] Flash activado!");
         if (luzTelefono != null)
         {
             luzTelefono.enabled = !luzTelefono.enabled;
         }
 
-        if (camaraTransform == null) return;
+        if (luzTelefono != null && luzTelefono.enabled)
+        {
+            EjecutarRayoFlash();
+        }
+    }
 
-        Ray rayo = new Ray(camaraTransform.position, camaraTransform.forward);
-
-        if (Physics.Raycast(rayo, out RaycastHit hit, alcanceFlash))
+    private void EjecutarRayoFlash()
+    {
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, alcanceFlash, capaEnemigo))
         {
             Enemigo1Tutorial fantasma = hit.collider.GetComponentInParent<Enemigo1Tutorial>();
-
             if (fantasma != null)
             {
-                Debug.Log("[FlashMecanica] ¡Fantasma impactado!");
                 fantasma.DeslumbradoPorFlash();
-                
+
                 SistemaSalud saludGhost = fantasma.GetComponent<SistemaSalud>();
                 if (saludGhost != null)
                 {
@@ -76,5 +57,12 @@ public class FlashMecanica : MonoBehaviour
             }
         }
     }
-}
 
+    private void OnSoltar(SelectExitEventArgs args)
+    {
+        if (luzTelefono != null)
+        {
+            luzTelefono.enabled = false;
+        }
+    }
+}

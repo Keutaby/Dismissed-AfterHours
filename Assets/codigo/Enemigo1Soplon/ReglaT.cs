@@ -1,96 +1,63 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
+[RequireComponent(typeof(UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable))]
 public class AtaqueRegla : MonoBehaviour
 {
-    public float alcanceAtaque = 2.5f;
     public int danoRegla = 25;
-    public float tiempoEntreAtaques = 0.5f;
-
-
-    public Transform manoTransform;
+    public float velocidadMinimaImpacto = 1.5f;
     public LayerMask capaEnemigo;
 
-    private GameObject reglaEnMano;
-    private bool tieneRegla = false;
-    private float tiempoProximoAtaque = 0f;
-    private ManejoObjetosEnMano manejoMano;
+    private UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable grabInteractable;
+    private Rigidbody rb;
 
-    void Start()
+    void Awake()
     {
-        manejoMano = GetComponent<ManejoObjetosEnMano>();
+        grabInteractable = GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    void OnEnable()
     {
-        if (!tieneRegla)
-        {
-            ComprobarRecogerRegla();
-            return;
-        }
-
-        if (Input.GetMouseButtonDown(0) && Time.time >= tiempoProximoAtaque)
-        {
-            AtacarConRegla();
-            tiempoProximoAtaque = Time.time + tiempoEntreAtaques;
-        }
+        grabInteractable.activated.AddListener(OnTriggerPressed);
     }
 
-    void ComprobarRecogerRegla()
+    void OnDisable()
     {
-        if (manejoMano != null && manejoMano.TieneObjetoEnMano()) return;
+        grabInteractable.activated.RemoveListener(OnTriggerPressed);
+    }
 
-        Ray rayo = new Ray(transform.position, transform.forward);
+    private void OnTriggerPressed(ActivateEventArgs args)
+    {
+        EjecutarAtaqueVR();
+    }
 
-        if (Physics.Raycast(rayo, out RaycastHit hit, 3f))
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (!grabInteractable.isSelected) return;
+        if (collision.relativeVelocity.magnitude >= velocidadMinimaImpacto)
         {
-            if (hit.collider.CompareTag("interactuable") || hit.collider.gameObject.name.ToLower().Contains("regla"))
-            {
-                if (Input.GetKeyDown(KeyCode.E))
-                {
-                    EquiparRegla(hit.collider.gameObject);
-                }
-            }
+            ProcesarDano(collision.gameObject);
         }
     }
 
-    void EquiparRegla(GameObject regla)
+    private void EjecutarAtaqueVR()
     {
-        tieneRegla = true;
-        reglaEnMano = regla;
-
-        if (manoTransform != null)
+        Debug.Log("[AtaqueRegla] Ataque activado");
+        
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, 1.5f, capaEnemigo))
         {
-            reglaEnMano.transform.SetParent(manoTransform);
-            reglaEnMano.transform.localPosition = Vector3.zero;
-            reglaEnMano.transform.localRotation = Quaternion.identity;
-
-            Rigidbody rulerRb = reglaEnMano.GetComponent<Rigidbody>();
-            if (rulerRb != null) rulerRb.isKinematic = true;
+            ProcesarDano(hit.collider.gameObject);
         }
-
-        Collider col = reglaEnMano.GetComponent<Collider>();
-        if (col != null) col.enabled = false;
-
-        Debug.Log("Regla equipada.");
     }
 
-    void AtacarConRegla()
+    private void ProcesarDano(GameObject objetivo)
     {
-        Debug.Log("Atacando con regla...");
-        Debug.DrawRay(transform.position, transform.forward * alcanceAtaque, Color.yellow, 1.0f);
-
-        Ray rayo = new Ray(transform.position, transform.forward);
-
-        if (Physics.SphereCast(rayo, 0.4f, out RaycastHit hit, alcanceAtaque, capaEnemigo))
+        SistemaSalud salud = objetivo.GetComponentInParent<SistemaSalud>();
+        if (salud != null)
         {
-            Debug.Log("Objeto impactado: " + hit.collider.gameObject.name);
-
-            SistemaSalud salud = hit.collider.GetComponentInParent<SistemaSalud>();
-            if (salud != null)
-            {
-                salud.RecibirDano(danoRegla);
-                Debug.Log("Daño infligido al fantasma!");
-            }
+            salud.RecibirDano(danoRegla);
+            Debug.Log("[AtaqueRegla] Dano infligido al enemigo!");
         }
     }
 }

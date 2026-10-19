@@ -372,7 +372,7 @@ public class Enemigo2 : MonoBehaviour, MonitorMuerte
             zonaAtaqueVisual.SetActive(false);
         }
 
-        Debug.Log("[Fantasma] �Ha sido derrotado!");
+        Debug.Log("[Fantasma] Ha sido derrotado!");
         gameObject.SetActive(false);
     }
 
