@@ -8,18 +8,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Juego.unity
     guid: 689db055d337dd748a4850f19c5757ef
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/prueba ordas.unity
     guid: 697e5ecab9545b14bb63b520b7966d76
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Intro.unity
     guid: 563daaf01ab657a479ee845bb5c98d77
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: bcc5188b74fff46a0a4f8ecc5f9f920a
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 1c7d5dbd7f19141e9b71dc0b06b3ff5a, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 32d09b06f148a3947b11d429e3643c5d, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 3e7257fb76a22443cb79b63768ad767a, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 437be442e89f4430db05858d4afd31e3, type: 2}
   m_UseUCBPForAssetBundles: 0
