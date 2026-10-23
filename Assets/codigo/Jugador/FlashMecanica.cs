@@ -29,9 +29,16 @@ public class FlashMecanica : MonoBehaviour
 
     private void AlternarFlash(ActivateEventArgs args)
     {
+        Debug.Log("[FlashMecanica] Presionado en el teléfono!");
+
         if (luzTelefono != null)
         {
             luzTelefono.enabled = !luzTelefono.enabled;
+            Debug.Log("[FlashMecanica] Estado del flash: " + luzTelefono.enabled);
+        }
+        else
+        {
+            Debug.LogWarning("[FlashMecanica] No hay ninguna luz asignado en luzTelefono.");
         }
 
         if (luzTelefono != null && luzTelefono.enabled)
@@ -44,6 +51,8 @@ public class FlashMecanica : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit, alcanceFlash, capaEnemigo))
         {
+            Debug.Log("[FlashMecanica] Rayo impacto en: " + hit.collider.gameObject.name);
+
             Enemigo1Tutorial fantasma = hit.collider.GetComponentInParent<Enemigo1Tutorial>();
             if (fantasma != null)
             {
