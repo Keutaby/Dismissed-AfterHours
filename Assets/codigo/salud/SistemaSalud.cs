@@ -1,46 +1,39 @@
+using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class SistemaSalud : MonoBehaviour
 {
-    public int saludMaxima = 100;
-    private int saludActual;
+    [SerializeField] private int saludMaxima = 100;
 
-    public delegate void CambioSalud(float porcentaje);
-    public event CambioSalud alCambiarSalud;
+    public int SaludActual { get; private set; }
+    public float Porcentaje => (float)SaludActual / saludMaxima;
+    public bool EstaMuerto => SaludActual <= 0;
 
-    private MonitorMuerte monitorMuerte;
+    public event Action<float> alCambiarSalud;
+    public event Action alMorir;
+
+    private MonitorMuerte monitorMuerte; // temporal, para que el fantasma actual siga compilando
 
     void Awake()
     {
-        saludActual = saludMaxima;
+        SaludActual = saludMaxima;
         monitorMuerte = GetComponent<MonitorMuerte>();
     }
 
     public void RecibirDano(int cantidad)
     {
-        saludActual = Mathf.Clamp(saludActual - cantidad, 0, saludMaxima);
-        
-        float porcentaje = (float)saludActual / saludMaxima;
-        alCambiarSalud?.Invoke(porcentaje);
+        if (EstaMuerto) return;
 
-        if (saludActual <= 0)
+        SaludActual = Mathf.Clamp(SaludActual - cantidad, 0, saludMaxima);
+        alCambiarSalud?.Invoke(Porcentaje);
+
+        if (EstaMuerto)
         {
-            if (gameObject.CompareTag("jugador") || gameObject.name.Contains("jugador"))
-            {
-                ReiniciarNivel();
-            }
-            else
-            {
-                monitorMuerte?.procesar_muerte();
-            }
+            alMorir?.Invoke();
+            monitorMuerte?.procesar_muerte();
         }
     }
 
-    public void ReiniciarNivel()
-    {
-        Debug.Log("[SistemaSalud] El jugador ha muerto. Reiniciando el nivel...");
-        int escenaActual = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(escenaActual);
-    }
+    [ContextMenu("Probar daño (10)")]
+    private void ProbarDano() => RecibirDano(10);
 }

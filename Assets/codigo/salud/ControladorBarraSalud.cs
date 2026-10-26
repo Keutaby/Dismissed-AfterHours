@@ -3,28 +3,20 @@ using UnityEngine.UI;
 
 public class ControladorBarraSalud : MonoBehaviour
 {
-    public SistemaSalud sistemaSaludTarget;
-
-    public Image mascaraSalud;
-    public Image imagenDestruida;
-
-    void Awake()
-    {
-        if (mascaraSalud == null)
-        {
-            mascaraSalud = GetComponent<Image>();
-        }
-    }
-
-    void Start()
-    {
-        ActualizarBarra(1f);
-    }
+    [SerializeField] private SistemaSalud sistemaSaludTarget;
+    [SerializeField] private Image mascaraSalud;     // la que se va vaciando
+    [SerializeField] private Image imagenDestruida;  // la que se va llenando
 
     void OnEnable()
     {
         if (sistemaSaludTarget != null)
             sistemaSaludTarget.alCambiarSalud += ActualizarBarra;
+    }
+
+    void Start()
+    {
+        if (sistemaSaludTarget != null)
+            ActualizarBarra(sistemaSaludTarget.Porcentaje);
     }
 
     void OnDisable()
@@ -35,16 +27,8 @@ public class ControladorBarraSalud : MonoBehaviour
 
     private void ActualizarBarra(float porcentaje)
     {
-        float saludNormalizada = Mathf.Clamp01(porcentaje);
-
-        if (mascaraSalud != null)
-        {
-            mascaraSalud.fillAmount = saludNormalizada;
-        }
-
-        if (imagenDestruida != null)
-        {
-            imagenDestruida.fillAmount = 1f - saludNormalizada;
-        }
+        porcentaje = Mathf.Clamp01(porcentaje);
+        if (mascaraSalud != null) mascaraSalud.fillAmount = porcentaje;
+        if (imagenDestruida != null) imagenDestruida.fillAmount = 1f - porcentaje;
     }
 }
