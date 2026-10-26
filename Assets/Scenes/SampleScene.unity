@@ -490,8 +490,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56613621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10.416}
+  m_LocalScale: {x: 0.0025082005, y: 0.0025082005, z: 0.0025082005}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 186990509}
@@ -500,7 +500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 45.100006, y: 2.0144043}
+  m_AnchoredPosition: {x: 182.01804, y: 98.683}
   m_SizeDelta: {x: 238.0622, y: 42.3042}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &56613623
@@ -2819,9 +2819,6 @@ PrefabInstance:
       addedObject: {fileID: 318380487}
     - targetCorrespondingSourceObject: {fileID: 774637922638650708, guid: 4e50bf42f760c954bbb08da3dc7e88e5, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 318380486}
-    - targetCorrespondingSourceObject: {fileID: 774637922638650708, guid: 4e50bf42f760c954bbb08da3dc7e88e5, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 318380485}
   m_SourcePrefab: {fileID: 100100000, guid: 4e50bf42f760c954bbb08da3dc7e88e5, type: 3}
 --- !u!1 &318380484 stripped
@@ -2850,45 +2847,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.31891298, y: 2.1826885, z: 4.458147}
   m_Center: {x: -0.00027871132, y: -0.4192212, z: -0.619653}
---- !u!59 &318380486
-HingeJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318380484}
-  serializedVersion: 3
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: -1.63, z: 1.35}
-  m_Axis: {x: 0, y: 1, z: 0}
-  m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: -36.37, y: -19, z: 0}
-  m_UseSpring: 1
-  m_Spring:
-    spring: 5
-    damper: 10
-    targetPosition: 0
-  m_UseMotor: 0
-  m_Motor:
-    targetVelocity: 0
-    force: 0
-    freeSpin: 0
-  m_UseLimits: 1
-  m_ExtendedLimits: 0
-  m_UseAcceleration: 0
-  m_Limits:
-    min: -88.10533
-    max: 91.87878
-    bounciness: 0
-    bounceMinVelocity: 0.2
-    contactDistance: 0
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!54 &318380487
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4325,6 +4283,94 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1654278321}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &429228876 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4686825198911699489, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+  m_PrefabInstance: {fileID: 1412561221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &429228878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429228876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 2147483648
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+  m_TeleportationProvider: {fileID: 0}
+  m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
+  m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
+  m_Teleporting:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &430505048 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1505925624201868980, guid: 4e50bf42f760c954bbb08da3dc7e88e5, type: 3}
@@ -4663,8 +4709,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.0175896, y: 0.14309615, z: 3.4755182}
-  m_Center: {x: -0.0015244484, y: 0.000000033527613, z: 0}
+  m_Size: {x: 7.0175896, y: 1.0478413, z: 3.4755177}
+  m_Center: {x: -0.0015244042, y: 0.45237264, z: 0}
 --- !u!114 &483045996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4837,8 +4883,8 @@ MonoBehaviour:
   velocidadMaxima: 6
   danoMinimo: 15
   danoMaximo: 60
-  cooldownPorFantasma: 0.5
-  aturdimientoGolpe: 0.4
+  cooldownPorFantasma: 1
+  aturdimientoGolpe: 1
 --- !u!4 &491100104 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5323403f4761b3944b83c95079a4eaaa, type: 3}
@@ -5212,7 +5258,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 39.661404, y: 104.741486, z: 0.13054463}
+  m_Size: {x: 39.661404, y: 104.741486, z: 1}
   m_Center: {x: 0, y: 37.30139, z: 12.041847}
 --- !u!64 &550905645
 MeshCollider:
@@ -5236,6 +5282,89 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5104148891901948894, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+--- !u!114 &550905647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 550905635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+  m_TeleportationProvider: {fileID: 0}
+  m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
+  m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
+  m_Teleporting:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &558891362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5323403f4761b3944b83c95079a4eaaa, type: 3}
@@ -8118,8 +8247,91 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 39.661404, y: 74.759415, z: 0.13054463}
+  m_Size: {x: 39.661404, y: 74.759415, z: 1}
   m_Center: {x: 0, y: -52.431366, z: 12.041847}
+--- !u!114 &1170014731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170014725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+  m_TeleportationProvider: {fileID: 0}
+  m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
+  m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
+  m_Teleporting:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1172256967
 GameObject:
   m_ObjectHideFlags: 0
@@ -8860,7 +9072,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 40.17722, y: 181.29189, z: 0}
+  m_Size: {x: 40.17722, y: 181.29189, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1259966827
 MonoBehaviour:
@@ -8877,7 +9089,7 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders: []
   m_InteractionLayers:
-    m_Bits: 4294967295
+    m_Bits: 2147483648
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1
@@ -10125,15 +10337,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1401793204}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0000016156}
+  m_LocalScale: {x: 0.16162, y: 0.16162, z: 0.16162}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1697251090}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -111, y: -115.8}
+  m_AnchoredPosition: {x: -315.78, y: -182.32}
   m_SizeDelta: {x: 400, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1401793206
@@ -10488,6 +10700,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 794921823759426713, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 853821772}
+    - targetCorrespondingSourceObject: {fileID: 4686825198911699489, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 429228878}
+    - targetCorrespondingSourceObject: {fileID: -2928895093585071293, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1442195424}
     - targetCorrespondingSourceObject: {fileID: 420494068470983660, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 550905640}
@@ -10497,9 +10715,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 420494068470983660, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 550905645}
+    - targetCorrespondingSourceObject: {fileID: 420494068470983660, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 550905647}
     - targetCorrespondingSourceObject: {fileID: -918049275717029509, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1170014729}
+    - targetCorrespondingSourceObject: {fileID: -918049275717029509, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1170014731}
     - targetCorrespondingSourceObject: {fileID: -7029948723529949830, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1259966822}
@@ -10617,6 +10841,94 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 220513732}
   m_SourcePrefab: {fileID: 100100000, guid: 5323403f4761b3944b83c95079a4eaaa, type: 3}
+--- !u!1 &1442195422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -2928895093585071293, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
+  m_PrefabInstance: {fileID: 1412561221}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1442195424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442195422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38f6bf3d943ac7945842268c9ef1dca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Locomotion.Teleportation.TeleportationArea
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayers:
+    m_Bits: 2147483648
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 1
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_AutoFindParentInteractableInHierarchy: 0
+  m_ParentInteractableObject: {fileID: 0}
+  m_TeleportationProvider: {fileID: 0}
+  m_MatchOrientation: 0
+  m_MatchDirectionalInput: 0
+  m_TeleportTrigger: 0
+  m_FilterSelectionByHitNormal: 0
+  m_UpNormalToleranceDegrees: 30
+  m_Teleporting:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1443379791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12279,7 +12591,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1697251088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12301,7 +12613,7 @@ Canvas:
   m_GameObject: {fileID: 1697251085}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -12322,9 +12634,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1697251085}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.021030677, z: -0, w: 0.99977887}
+  m_LocalPosition: {x: 0, y: 0, z: -3.5}
+  m_LocalScale: {x: 1.0000001, y: 0.5, z: 1.0000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1401793205}
@@ -12333,9 +12645,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 349.3, y: 100.1}
+  m_SizeDelta: {x: 1064, y: 598.7143}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1704824795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 936c2daa36922bc4784f7d42cb15449f, type: 3}
@@ -20412,24 +20724,28 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
+      propertyPath: m_Size.x
+      value: 1.168511
+      objectReference: {fileID: 0}
+    - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_Size.y
-      value: 2.5093236
+      value: 5.577974
       objectReference: {fileID: 0}
     - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_Size.z
-      value: 0.08617087
+      value: 0.08617089
       objectReference: {fileID: 0}
     - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_Center.x
-      value: 0.000000009081445
+      value: 0.084255226
       objectReference: {fileID: 0}
     - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_Center.y
-      value: -0.7546625
+      value: 0.47716227
       objectReference: {fileID: 0}
     - target: {fileID: 7854695369507596599, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_Center.z
-      value: 0.33807212
+      value: 0.33806846
       objectReference: {fileID: 0}
     - target: {fileID: 8107499044432469155, guid: 6c4e3cd0645004aedafa69cf67902cd7, type: 3}
       propertyPath: m_SpotAngle
