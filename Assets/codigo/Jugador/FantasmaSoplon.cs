@@ -26,6 +26,10 @@ public class FantasmaSoplon : MonoBehaviour, MonitorMuerte
     [SerializeField] private float multiplicadorDanoFlash = 1f;       // 1 = daño normal, 0.5 = la mitad
     [SerializeField] private float multiplicadorAturdimiento = 1f;    // 0.5 = se aturde la mitad del tiempo
 
+    [Header("Resistencia a la regla T")]
+    [SerializeField] private float multiplicadorDanoRegla = 1f;
+    public float MultiplicadorDanoRegla => multiplicadorDanoRegla;
+
     public float MultiplicadorDanoFlash => multiplicadorDanoFlash;
     public float MultiplicadorAturdimiento => multiplicadorAturdimiento;
 

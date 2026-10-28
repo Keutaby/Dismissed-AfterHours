@@ -13,7 +13,7 @@ public class ReglaT : MonoBehaviour
     [SerializeField] private int danoMinimo = 15;
     [SerializeField] private int danoMaximo = 60;
     [SerializeField] private float cooldownPorFantasma = 0.5f;
-    [SerializeField] private float aturdimientoGolpe = 0.4f; // un respiro corto tras cada golpe
+    [SerializeField] private float aturdimientoGolpe = 0.4f; // respiro corto tras cada golpe
 
     private XRGrabInteractable grab;
     private Vector3 ultimaPosicion;
@@ -31,27 +31,47 @@ public class ReglaT : MonoBehaviour
         ultimaPosicion = transform.position;
     }
 
-    void OnCollisionEnter(Collision c) => Golpear(c.collider);
-    void OnCollisionStay(Collision c) => Golpear(c.collider);
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("[Regla] Trigger tocó: " + other.name);
+        Golpear(other);
+    }
+
+    void OnTriggerStay(Collider other) => Golpear(other);
 
     private void Golpear(Collider col)
     {
-        if (!grab.isSelected) return;                 // solo cuando la traes en la mano
-        if (velocidad < velocidadMinima) return;
-
         FantasmaSoplon fantasma = col.GetComponentInParent<FantasmaSoplon>();
         if (fantasma == null) return;
 
+        if (!grab.isSelected)
+        {
+            Debug.Log("[Regla] Toca al fantasma pero NO está agarrada");
+            return;
+        }
+
+        if (velocidad < velocidadMinima)
+        {
+            Debug.Log("[Regla] Muy lento: " + velocidad.ToString("F2") + " (mínimo " + velocidadMinima + ")");
+            return;
+        }
+
         SistemaSalud salud = fantasma.GetComponent<SistemaSalud>();
-        if (salud == null || salud.EstaMuerto) return;
+        if (salud == null)
+        {
+            Debug.LogWarning("[Regla] El fantasma no tiene SistemaSalud en el mismo objeto que FantasmaSoplon");
+            return;
+        }
+        if (salud.EstaMuerto) return;
 
         if (ultimoGolpe.TryGetValue(salud, out float t) && Time.time < t + cooldownPorFantasma) return;
         ultimoGolpe[salud] = Time.time;
 
         float fuerza = Mathf.InverseLerp(velocidadMinima, velocidadMaxima, velocidad);
-        int dano = Mathf.RoundToInt(Mathf.Lerp(danoMinimo, danoMaximo, fuerza));
+        float danoBase = Mathf.Lerp(danoMinimo, danoMaximo, fuerza);
+        int dano = Mathf.RoundToInt(danoBase * fantasma.MultiplicadorDanoRegla);
 
-        fantasma.Aturdir(aturdimientoGolpe);          // antes del daño, por si lo mata
+        fantasma.Aturdir(aturdimientoGolpe);   // antes del daño, por si lo mata
         salud.RecibirDano(dano);
         Debug.Log("[Regla] Velocidad " + velocidad.ToString("F1") + " → daño " + dano + " | vida: " + salud.SaludActual);
     }
