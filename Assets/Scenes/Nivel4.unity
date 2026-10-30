@@ -8082,11 +8082,24 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3081983198886580849, guid: 33809b8d73859404499b0aad4e19379c, type: 3}
+      propertyPath: m_Size.z
+      value: 4.119554
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081983198886580849, guid: 33809b8d73859404499b0aad4e19379c, type: 3}
+      propertyPath: m_Center.x
+      value: -2.8289966e-16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3081983198886580849, guid: 33809b8d73859404499b0aad4e19379c, type: 3}
+      propertyPath: m_Center.z
+      value: -0.002312491
+      objectReference: {fileID: 0}
     - target: {fileID: 5662657590203680733, guid: 33809b8d73859404499b0aad4e19379c, type: 3}
       propertyPath: m_Name
       value: Piso (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -8982229395858079393, guid: 33809b8d73859404499b0aad4e19379c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -14272,6 +14285,7 @@ GameObject:
   - component: {fileID: 1730523195}
   - component: {fileID: 1730523194}
   - component: {fileID: 1730523193}
+  - component: {fileID: 1730523198}
   m_Layer: 0
   m_Name: XR Origin (VR)
   m_TagString: Untagged
@@ -14319,13 +14333,38 @@ Transform:
   m_GameObject: {fileID: 1730523192}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.707107, z: -0, w: 0.70710665}
-  m_LocalPosition: {x: -9.320432, y: 1.7857351, z: 0.42022705}
+  m_LocalPosition: {x: -5.51, y: 1.56, z: 0.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1579889173}
   m_Father: {fileID: 466955661}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!143 &1730523198
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730523192}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1731643628
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15753,6 +15792,7 @@ GameObject:
   - component: {fileID: 1867986951}
   - component: {fileID: 1867986950}
   - component: {fileID: 1867986949}
+  - component: {fileID: 1867986953}
   m_Layer: 0
   m_Name: Piso_Nivel
   m_TagString: Untagged
@@ -15854,6 +15894,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1867986953
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867986948}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.999999, y: 2.2204463e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1872703493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1027904461094677105, guid: 6031e6fda388f4a01b742cd5fcb5957b, type: 3}
@@ -15943,6 +16004,7 @@ GameObject:
   - component: {fileID: 1888743565}
   - component: {fileID: 1888743564}
   - component: {fileID: 1888743563}
+  - component: {fileID: 1888743566}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -16133,6 +16195,50 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1888743566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1888743561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1001 &1889789864
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18989,6 +19095,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7890635557199347040}
+  - component: {fileID: 7890635557199347041}
   m_Layer: 0
   m_Name: Nivel4_Modular
   m_TagString: Untagged
@@ -19295,6 +19402,38 @@ Transform:
   - {fileID: 2086103971}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7890635557199347041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7407009163196147674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: cc7f66a4e88fb479faf899d8d3dd4013, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1001 &9015685137809008815
 PrefabInstance:
   m_ObjectHideFlags: 0
