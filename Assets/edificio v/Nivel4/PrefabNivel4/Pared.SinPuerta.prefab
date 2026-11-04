@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1093984544940717841}
   - component: {fileID: 6557528601024549564}
   - component: {fileID: 1095569593418423733}
+  - component: {fileID: 3458662209942622907}
   m_Layer: 0
   m_Name: Pared.SinPuerta
   m_TagString: Untagged
@@ -92,3 +93,25 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &3458662209942622907
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7021266021624801826}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -6178999381252323195, guid: ac4015c713562474582725d5e59f3b4e, type: 3}
