@@ -1,112 +1,113 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class Orda
 {
-    public string nombreOrda;                // Nombre de la orda
+    public string nombreOrda;              // Nombre de la orda
     public GameObject enemyPrefab;         // El prefab del enemigo para esta orda
-    public int enemyCount;                 // Cantidad de enemigos que aperecen
-    public float spawnInterval;            // Tiempo de espera entre la aparición de cada enemigo
+    public int enemyCount;                 // Cantidad de enemigos que aparecen
+    public float spawnInterval;            // Segundos entre la aparición de cada enemigo
 }
 
 public class OrdasController : MonoBehaviour
 {
     [Header("Configuración de Oleadas")]
-    public List<Orda> ordas;               // Lista de todas las ordas configuradas
-    public Transform[] spawnPoints;        // Puntos donde pueden aparecer los enemigos
+    public List<Orda> ordas;
+    public Transform[] spawnPoints;        // Puntos donde pueden aparecer (deben estar sobre la NavMesh)
 
     [Header("Tiempos")]
-    public float timeBetweenWaves = 5f;    // Tiempo de descanso entre orfass
+    public float timeBetweenWaves = 5f;    // Descanso entre ordas
+    [SerializeField] private bool iniciarAlEmpezar = true;   // Desmárcalo si quieres lanzarlas desde otro script
 
-    private int currentWaveIndex = 0;
-    private bool canSpawn = true;
-    private int enemiesAlive = 0;
+    [Header("Eventos")]
+    [SerializeField] private UnityEvent alIniciarOrda;       // por ejemplo: sonido de alarma
+    [SerializeField] private UnityEvent alCompletarTodas;    // por ejemplo: abrir la puerta de salida
+
+    private int currentWaveIndex;
+    private int enemiesAlive;
+    private bool iniciado;
 
     void Start()
     {
         if (spawnPoints.Length == 0)
-        {
-            Debug.LogWarning("¡No hay puntos de aparición (Spawn Points) asignados!");
-        }
+            Debug.LogWarning("[Ordas] No hay Spawn Points asignados, aparecerán en la posición de este objeto");
 
-        // Inicia la primera oleada si existe
-        if (ordas.Count > 0)
-        {
-            StartCoroutine(SpawnWave());
-        }
+        if (iniciarAlEmpezar) IniciarOrdas();
     }
 
-    void Update()
+    // Llámalo desde TutorialPaneles (Al Terminar), un trigger, un botón, etc.
+    public void IniciarOrdas()
     {
-        
+        if (iniciado || ordas.Count == 0) return;
+        iniciado = true;
+        StartCoroutine(RutinaOrdas());
     }
 
-    IEnumerator SpawnWave()
+    private IEnumerator RutinaOrdas()
     {
-        canSpawn = false;
-        Orda ordaActual = ordas[currentWaveIndex];
-
-        Debug.Log("¡Iniciando " + ordaActual.nombreOrda + "!");
-
-        // Establecemos cuántos enemigos habrá vivos en esta orda
-        enemiesAlive = ordaActual.enemyCount;
-
-        // Bucle para generar a los enemigos de la orda actual
-        for (int i = 0; i < ordaActual.enemyCount; i++)
+        while (currentWaveIndex < ordas.Count)
         {
-            SpawnEnemy(ordaActual.enemyPrefab);
+            Orda orda = ordas[currentWaveIndex];
+            Debug.Log("[Ordas] ¡Iniciando " + orda.nombreOrda + "!");
+            alIniciarOrda?.Invoke();
 
-            // Espera el tiempo configurado antes de generar al siguiente enemigo
-            yield return new WaitForSeconds(ordaActual.spawnInterval);
+            enemiesAlive = orda.enemyCount;
+
+            for (int i = 0; i < orda.enemyCount; i++)
+            {
+                if (!SpawnEnemy(orda.enemyPrefab)) enemiesAlive--;   // si falla el spawn, no esperes por él
+                yield return new WaitForSeconds(orda.spawnInterval);
+            }
+
+            // Espera a que mueran todos
+            while (enemiesAlive > 0) yield return null;
+
+            Debug.Log("[Ordas] " + orda.nombreOrda + " completada");
+            currentWaveIndex++;
+
+            if (currentWaveIndex < ordas.Count)
+                yield return new WaitForSeconds(timeBetweenWaves);
         }
 
-        // Esperar a que todos los enemigos mueran antes de pasar a la siguiente oleada
-       
-        while (enemiesAlive > 0)
-        {
-            yield return null;
-        }
+        Debug.Log("[Ordas] ¡Todas las ordas completadas!");
+        alCompletarTodas?.Invoke();
+    }
 
-        // Oleada completada
-        Debug.Log(ordaActual.nombreOrda + " completada.");
-        currentWaveIndex++;
+    private bool SpawnEnemy(GameObject prefab)
+    {
+        if (prefab == null) return false;
 
-        // Verificar si quedan más oleadas
-        if (currentWaveIndex < ordas.Count)
-        {
-            Debug.Log("Siguiente oleada en " + timeBetweenWaves + " segundos...");
-            yield return new WaitForSeconds(timeBetweenWaves);
-            StartCoroutine(SpawnWave());
-        }
+        Transform punto = spawnPoints.Length > 0 ? spawnPoints[Random.Range(0, spawnPoints.Length)] : transform;
+
+        // Ajusta el punto a la NavMesh, si no el NavMeshAgent da error
+        Vector3 posicion = punto.position;
+        if (NavMesh.SamplePosition(punto.position, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+            posicion = hit.position;
         else
-        {
-            Debug.Log("¡Todas las oleadas han sido completadas! ¡Victoria!");
-            // Aquí puedes activar tu pantalla de victoria, etc.
-        }
-    }
+            Debug.LogWarning("[Ordas] El punto " + punto.name + " no está cerca de la NavMesh");
 
-    void SpawnEnemy(GameObject enemyPrefab)
-    {
-        if (enemyPrefab == null) return;
+        GameObject enemigo = Instantiate(prefab, posicion, punto.rotation);
 
-        // Elegir un punto de aparición aleatorio (si hay varios) o usar la posición del Spawner si no hay puntos
-        Transform spawnPoint = transform;
-        if (spawnPoints.Length > 0)
+        SistemaSalud salud = enemigo.GetComponent<SistemaSalud>();
+        if (salud == null)
         {
-            spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+            Debug.LogError("[Ordas] El prefab " + prefab.name + " no tiene SistemaSalud");
+            Destroy(enemigo);
+            return false;
         }
 
-        // Instanciar el enemigo
-        GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
-
-       
+        salud.alMorir += () => AlMorirEnemigo(enemigo);
+        return true;
     }
 
-    // Método que se llama cuando un enemigo muere
-    void OnEnemyKilled()
+    private void AlMorirEnemigo(GameObject enemigo)
     {
         enemiesAlive--;
+        Debug.Log("[Ordas] Enemigos restantes: " + enemiesAlive);
+        if (enemigo != null) Destroy(enemigo, 1f);   // limpia al fantasma muerto
     }
 }
