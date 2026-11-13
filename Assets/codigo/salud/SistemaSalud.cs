@@ -33,7 +33,17 @@ public class SistemaSalud : MonoBehaviour
             monitorMuerte?.procesar_muerte();
         }
     }
+    // esto es para el burrito no lo borres TE HBALO A TI VALERIA
+    public void CurarCompletamente()
+    {
+        if (EstaMuerto) return;
+
+        SaludActual = saludMaxima;
+        alCambiarSalud?.Invoke(Porcentaje);
+    }
 
     [ContextMenu("Probar daño (10)")]
     private void ProbarDano() => RecibirDano(10);
+
+    
 }
