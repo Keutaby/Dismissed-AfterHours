@@ -17,6 +17,19 @@ public class AtaqueManos : MonoBehaviour
     public float esperaAntesAtaque = 2f;
     public float pausaEnImpacto = 1f;
 
+    [Header("Vulnerabilidad")]
+    public float tiempoVulnerable = 5f;
+    private int ataquesRealizados = 0;
+
+    [Header("Daño al Jugador")]
+    public float radioImpacto = 9f;
+    public int danoJugador = 25;
+
+    [Header("Indicador de impacto")]
+    public GameObject indicadorImpacto;
+    public float tiempoAdvertencia = 1.5f;
+
+
     private float alturaInicial;
 
     void Start()
@@ -55,15 +68,42 @@ public class AtaqueManos : MonoBehaviour
 
             yield return StartCoroutine(MoverHorizontal(destinoHorizontal));
 
+            //Indicador de Ataque
+            indicadorImpacto.transform.position = new Vector3(puntoElegido.x,
+            puntoElegido.y + 0.03f,
+            puntoElegido.z);
+
+            indicadorImpacto.SetActive(true);
+            yield return new WaitForSeconds(tiempoAdvertencia);
+            //Y aqui viene el ataque!! 
+
             float alturaFinal = puntoElegido.y + alturaImpacto;
 
             yield return StartCoroutine(
                 MoverVertical(alturaFinal, velocidadCaida)
             );
 
+            indicadorImpacto.SetActive(false);
 
-            yield return new WaitForSeconds(pausaEnImpacto);
+            if (ataquesRealizados < 4)
+            {
+                DetectarJugador();
+            }
 
+            if (ataquesRealizados >= 4)
+            {
+                Debug.Log("Ay mi manitaaa, AY MI MANITAAA!");
+                yield return new WaitForSeconds(tiempoVulnerable);
+                Debug.Log("Ay! ya se safó!!!");
+                ataquesRealizados = 0;
+            }
+            else
+            {
+                ataquesRealizados++;
+                Debug.Log("Ataque normal número: " + ataquesRealizados);
+
+                yield return new WaitForSeconds(pausaEnImpacto);
+            }
 
             yield return StartCoroutine(
                 MoverVertical(alturaInicial, velocidadSubida)
@@ -111,5 +151,24 @@ public class AtaqueManos : MonoBehaviour
             destinoY,
             transform.position.z
         );
+    }
+
+    void DetectarJugador()
+    {
+        Collider[] objetosDetectados = Physics.OverlapSphere(transform.position,
+        radioImpacto
+        );
+
+        foreach (Collider objeto in objetosDetectados)
+        {
+            SistemaSalud salud = objeto.GetComponentInParent<SistemaSalud>();
+
+            if(salud != null)
+            {
+                salud.RecibirDano(danoJugador);
+                Debug.Log("A no manches, recibiste daño!!");
+                return;
+            }
+        }
     }
 }
