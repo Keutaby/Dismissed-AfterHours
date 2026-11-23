@@ -47,11 +47,14 @@ public class GameManager5 : MonoBehaviour
 
     IEnumerator PruebaSecuenciaEstados()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(6f);
         CambiarEstado(EstadosNvl5.IntroRector);
 
         yield return new WaitForSeconds(3f);
         CambiarEstado(EstadosNvl5.PrepararCombate);
+
+        yield return new WaitForSeconds(3f);
+        CambiarEstado(EstadosNvl5.Combate);
 
     }
 
