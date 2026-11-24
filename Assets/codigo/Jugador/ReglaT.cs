@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
@@ -18,6 +19,13 @@ public class ReglaT : MonoBehaviour
     private XRGrabInteractable grab;
     private Vector3 ultimaPosicion;
     private float velocidad;
+    [Header("Dano al rector")]
+    [SerializeField] private VidaDirector vidaDirector;
+    [SerializeField] private int golpesParaDanarRector = 3;
+    [SerializeField] private float cooldownPuño = 0.4f;
+
+    private int golpesAlRector=0;
+    private float ultimoGolpePuno = -10f;
     private readonly Dictionary<SistemaSalud, float> ultimoGolpe = new Dictionary<SistemaSalud, float>();
 
     void Awake() => grab = GetComponent<XRGrabInteractable>();
@@ -41,6 +49,15 @@ public class ReglaT : MonoBehaviour
 
     private void Golpear(Collider col)
     {
+        //Fantasma Director
+        AtaqueManos puno = col.GetComponentInParent<AtaqueManos>();
+        if (puno != null)
+        {
+            GolpearRector(puno);
+            return;
+        }
+        
+        //Fantasma Soplon
         FantasmaSoplon fantasma = col.GetComponentInParent<FantasmaSoplon>();
         if (fantasma == null) return;
 
@@ -74,5 +91,33 @@ public class ReglaT : MonoBehaviour
         fantasma.Aturdir(aturdimientoGolpe);   // antes del daño, por si lo mata
         salud.RecibirDano(dano);
         Debug.Log("[Regla] Velocidad " + velocidad.ToString("F1") + " → daño " + dano + " | vida: " + salud.SaludActual);
+    }
+
+    private void GolpearRector(AtaqueManos puno)
+    {
+        if(!puno.EstaVulnerable) return;
+        if(!grab.isSelected) return;
+        if(velocidad < velocidadMinima) return;
+        if(Time.time <ultimoGolpePuno + cooldownPuño)return;
+
+        ultimoGolpePuno = Time.time;
+        golpesAlRector++;
+
+        Debug.Log("Golpe al rector" + golpesAlRector + "/" + golpesParaDanarRector);
+
+        if(golpesAlRector >= golpesParaDanarRector)
+        {
+            if (vidaDirector == null)
+            {
+                Debug.LogError("Falta asignar Vida director en regla T");
+                return;
+            }
+
+            vidaDirector.RecibirDanio();
+
+            golpesAlRector = 0;
+
+            Debug.Log("Una mano del rector ha sido destruida!");
+        }
     }
 }

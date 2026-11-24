@@ -20,6 +20,7 @@ public class AtaqueManos : MonoBehaviour
     [Header("Vulnerabilidad")]
     public float tiempoVulnerable = 5f;
     private int ataquesRealizados = 0;
+    public bool EstaVulnerable {get; private set;} = false;
 
     [Header("Daño al Jugador")]
     public float radioImpacto = 9f;
@@ -92,9 +93,9 @@ public class AtaqueManos : MonoBehaviour
 
             if (ataquesRealizados >= 4)
             {
-                Debug.Log("Ay mi manitaaa, AY MI MANITAAA!");
+                EstaVulnerable = true;
                 yield return new WaitForSeconds(tiempoVulnerable);
-                Debug.Log("Ay! ya se safó!!!");
+                EstaVulnerable = false;
                 ataquesRealizados = 0;
             }
             else
