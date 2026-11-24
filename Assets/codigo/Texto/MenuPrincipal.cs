@@ -5,6 +5,7 @@ public class MenuPrincipal : MonoBehaviour
 {
     public void NuevoJuego()
     {
+        Debug.Log("Boton Nuevo Juego presionado");
         SceneManager.LoadScene("SampleScene");
     }
 
