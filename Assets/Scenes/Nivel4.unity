@@ -15773,6 +15773,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 1218604719}
     - target: {fileID: 8623740561221949911, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
       propertyPath: m_Name
       value: FantasmaPeleonero  (1)
@@ -18698,6 +18702,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad9b79813ed28448dba66064f367059b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SistemaSalud
+--- !u!4 &1218604719 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7324497988044254050, guid: 05e0a5643451a7242b884560fc0347e6, type: 3}
+  m_PrefabInstance: {fileID: 5492686490308433123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1220421577 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2270769958684742244, guid: 4e56e66ecc4454f8dadc79c7f4d872ce, type: 3}
@@ -22215,6 +22224,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 1218604719}
     - target: {fileID: 8623740561221949911, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
       propertyPath: m_Name
       value: 'FantasmaPeleonero '
@@ -24772,6 +24785,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 1218604719}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: puntosPatrulla.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8623740561221949911, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
       propertyPath: m_Name
       value: FantasmaPeleonero (3)
@@ -27273,6 +27294,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 1218604719}
     - target: {fileID: 8623740561221949911, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
       propertyPath: m_Name
       value: FantasmaPeleonero (4)
@@ -29188,6 +29213,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6037896610933558726, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
+      propertyPath: jugador
+      value: 
+      objectReference: {fileID: 1218604719}
     - target: {fileID: 8623740561221949911, guid: b49bfa9d8f7d07a45b16e126a3fb5621, type: 3}
       propertyPath: m_Name
       value: FantasmaPeleonero  (2)
