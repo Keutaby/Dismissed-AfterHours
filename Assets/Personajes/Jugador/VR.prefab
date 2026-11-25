@@ -614,6 +614,18 @@ PrefabInstance:
       propertyPath: m_RequestedTrackingOriginMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3622738610780116797, guid: 66ba1d82b2dcc49ada56d3fc6e5bb7b1, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3785319246221551611, guid: 66ba1d82b2dcc49ada56d3fc6e5bb7b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4149440493115108626, guid: 66ba1d82b2dcc49ada56d3fc6e5bb7b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4739006636015274291, guid: 66ba1d82b2dcc49ada56d3fc6e5bb7b1, type: 3}
       propertyPath: m_Height
       value: 1.91
