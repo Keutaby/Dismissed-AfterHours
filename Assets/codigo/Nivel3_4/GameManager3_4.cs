@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class GameManager3_4 : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class GameManager3_4 : MonoBehaviour
 
     [Header("Generadores")]
     public GeneradorCuadernos generadorCuadernos;
+    public GeneradorProyectos generadorProyectos;
 
     [Header("EnemigosNivel3")]
     public GameObject[] enemigosNivel3;
@@ -150,8 +152,24 @@ public class GameManager3_4 : MonoBehaviour
                 }
             }
 
+            if (generadorProyectos != null)
+            {
+                generadorProyectos.GenerarProyectos();
+
+            }
+            else
+            {
+                Debug.LogError ("Nose asigno el generador de proyectinis");
+            }
+
             Debug.Log("Los muertos vivientes ya recorren el nivel 4");
             Debug.Log("Comienza el gameplay! NIVEL 4 #########");
+        }
+
+        if (State == Estados3_4.TransicionNvl5)
+        {
+            Debug.Log("UY, vas con el boss final!!");
+            SceneManager.LoadScene("Nivel5");
         }
     }
 }
