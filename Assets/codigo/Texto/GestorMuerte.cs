@@ -23,6 +23,7 @@ public class GestorMuerte : MonoBehaviour
 
     private SistemaSalud sistemaSalud;
     private bool yaMuerto;
+    public static bool ReinicioPorMuerte = false;
 
     void Awake() => sistemaSalud = GetComponent<SistemaSalud>();
 
@@ -103,7 +104,8 @@ public class GestorMuerte : MonoBehaviour
     // La llama el botón desde el Inspector
     public void BotonReiniciar()
     {
-        Time.timeScale = 1f;   // si no, la escena nueva carga congelada
+        ReinicioPorMuerte = true;   // la escena nueva sabrá que viene de una muerte
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

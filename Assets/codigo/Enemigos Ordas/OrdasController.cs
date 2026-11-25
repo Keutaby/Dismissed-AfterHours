@@ -5,6 +5,8 @@ using UnityEngine.AI;
 using UnityEngine.Events;
 
 [System.Serializable]
+
+
 public class Orda
 {
     public string nombreOrda;              // Nombre de la orda
@@ -25,8 +27,8 @@ public class OrdasController : MonoBehaviour
 
     [Header("Eventos")]
     [SerializeField] private UnityEvent alIniciarOrda;       // por ejemplo: sonido de alarma
-    [SerializeField] private UnityEvent alCompletarTodas;    // por ejemplo: abrir la puerta de salida
-
+    [SerializeField] private UnityEvent alCompletarTodas;// por ejemplo: abrir la puerta de salida
+    public event System.Action todasCompletadas;
     private int currentWaveIndex;
     private int enemiesAlive;
     private bool iniciado;
@@ -75,7 +77,9 @@ public class OrdasController : MonoBehaviour
 
         Debug.Log("[Ordas] ¡Todas las ordas completadas!");
         alCompletarTodas?.Invoke();
+        todasCompletadas?.Invoke();
     }
+
 
     private bool SpawnEnemy(GameObject prefab)
     {

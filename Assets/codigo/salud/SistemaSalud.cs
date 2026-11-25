@@ -33,7 +33,14 @@ public class SistemaSalud : MonoBehaviour
             monitorMuerte?.procesar_muerte();
         }
     }
-    // esto es para el burrito no lo borres TE HBALO A TI VALERIA
+    public void Curar(int cantidad)
+    {
+        if (EstaMuerto) return;
+
+        SaludActual = Mathf.Clamp(SaludActual + cantidad, 0, saludMaxima);
+        alCambiarSalud?.Invoke(Porcentaje);
+    }
+
     public void CurarCompletamente()
     {
         if (EstaMuerto) return;
@@ -41,9 +48,4 @@ public class SistemaSalud : MonoBehaviour
         SaludActual = saludMaxima;
         alCambiarSalud?.Invoke(Porcentaje);
     }
-
-    [ContextMenu("Probar daño (10)")]
-    private void ProbarDano() => RecibirDano(10);
-
-    
 }
