@@ -2978,11 +2978,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FantasmaSoplon
   jugador: {fileID: 0}
   zonaAtaque: {fileID: 7792969485826744754}
-  puntosPatrulla: []
+  puntosPatrulla:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   tagPuntos: punto
   rangoVision: 8
   rangoPerdida: 12
-  rangoAtaque: 2.5
+  rangoAtaque: 1.25
   capasObstaculos:
     serializedVersion: 2
     m_Bits: 0

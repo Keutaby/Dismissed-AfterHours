@@ -138,6 +138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8404815573451955851}
   - component: {fileID: 7909919466569530244}
+  - component: {fileID: -6618311239015566625}
   m_Layer: 0
   m_Name: Mano.00
   m_TagString: Untagged
@@ -233,6 +234,28 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.21160603, y: 2.1727066, z: -0.18309629}
     m_Extent: {x: 1.9144464, y: 2.7831511, z: 1.7357348}
   m_DirtyAABB: 0
+--- !u!95 &-6618311239015566625
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1915902706533502963}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 24e4324bcca3349a9a63161d78874331, type: 3}
+  m_Controller: {fileID: 9100000, guid: 11a21e75b7c37496a9997c13e440a7e0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1986965748596816044
 GameObject:
   m_ObjectHideFlags: 0
