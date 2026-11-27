@@ -3,7 +3,7 @@ using UnityEngine;
 public class MovimientoVertical : MonoBehaviour
 {
     [SerializeField] private float altura = 0.2f;      // cuánto sube y baja (metros)
-    [SerializeField] private float velocidad = 1.5f;   // más alto = más rápido
+    [SerializeField] private float velocidad = 5f;   // más alto = más rápido
     [SerializeField] private float giro = 0f;          // opcional: grados por segundo para que gire
 
     private Vector3 posicionInicial;

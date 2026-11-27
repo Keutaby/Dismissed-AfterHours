@@ -4,6 +4,8 @@ using System.Collections;
 
 public class AtaqueManos : MonoBehaviour
 {
+    public auidocontroler Auidocontroler;
+    
     [Header("Puntos de Ataque")]
     public Transform[] puntosAtaque;
 
@@ -82,7 +84,10 @@ public class AtaqueManos : MonoBehaviour
 
             yield return StartCoroutine(
                 MoverVertical(alturaFinal, velocidadCaida)
+
             );
+            if (Auidocontroler != null)
+                Auidocontroler.playGolpe();
 
             indicadorImpacto.SetActive(false);
 
@@ -136,7 +141,8 @@ public class AtaqueManos : MonoBehaviour
                 transform.position.y,
                 destinoY,
                 velocidad * Time.deltaTime
-            );
+           
+            ); 
 
             transform.position = new Vector3(
                 transform.position.x,
@@ -152,6 +158,7 @@ public class AtaqueManos : MonoBehaviour
             destinoY,
             transform.position.z
         );
+       
     }
 
     void DetectarJugador()

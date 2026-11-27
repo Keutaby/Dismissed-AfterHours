@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/InicioAssets/Animacion/MenuOpciones.prefab.meta
 guid: 30d81ed7aacdd4c45ad4832ebea6e9b0
+========
+guid: d0289ff7032afd84390fd80ec805c893
+>>>>>>>> c4c66446388ee11b8b187d9c657cd063774bfb33:Assets/Objetos/Prefabs/Burrito.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

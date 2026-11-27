@@ -4,6 +4,8 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class FantasmaSoplon : MonoBehaviour, MonitorMuerte
 {
+    public SondidoFantasma sondidoFantasma;
+
     public enum Estado { Patrullar, Perseguir, Atacar, Aturdido, Muerto }
     [Header("Referencias")]
     [SerializeField] private Transform jugador;          // si lo dejas vacío, busca el tag "jugador"
@@ -185,6 +187,7 @@ public class FantasmaSoplon : MonoBehaviour, MonitorMuerte
         if (dir.sqrMagnitude < 0.01f) return;
         Quaternion giro = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.Slerp(transform.rotation, giro, 8f * Time.deltaTime);
+        sondidoFantasma.playAtaque();
     }
 
     // ---------- Muerte (la usa SistemaSalud por ahora) ----------
