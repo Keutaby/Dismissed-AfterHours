@@ -52,11 +52,36 @@ public class ReglaT : MonoBehaviour
 
     private void Golpear(Collider col)
     {
+
+        
         //Fantasma Director
         AtaqueManos puno = col.GetComponentInParent<AtaqueManos>();
         if (puno != null)
         {
             GolpearRector(puno);
+            return;
+        }
+
+        // Policia Fantasma
+        PoliciaFantasma policia = col.GetComponentInParent<PoliciaFantasma>();
+
+        if (policia != null)
+        {
+            if (!grab.isSelected) return;
+            if (velocidad < velocidadMinima) return;
+
+            if (ultimoGolpePolicia.TryGetValue(policia, out float tiempo))
+            {
+                if (Time.time < tiempo + cooldownPolicia)
+                    return;
+            }
+
+            ultimoGolpePolicia[policia] = Time.time;
+
+            policia.RecibirGolpeRegla();
+
+            Debug.Log("[Regla] ¡Policía aturdido durante 4 segundos!");
+
             return;
         }
         
@@ -94,29 +119,6 @@ public class ReglaT : MonoBehaviour
         fantasma.Aturdir(aturdimientoGolpe);   // antes del daño, por si lo mata
         salud.RecibirDano(dano);
         Debug.Log("[Regla] Velocidad " + velocidad.ToString("F1") + " → daño " + dano + " | vida: " + salud.SaludActual);
-
-        // Policia Fantasma
-        PoliciaFantasma policia = col.GetComponentInParent<PoliciaFantasma>();
-
-        if (policia != null)
-        {
-            if (!grab.isSelected) return;
-            if (velocidad < velocidadMinima) return;
-
-            if (ultimoGolpePolicia.TryGetValue(policia, out float tiempo))
-            {
-                if (Time.time < tiempo + cooldownPolicia)
-                    return;
-            }
-
-            ultimoGolpePolicia[policia] = Time.time;
-
-            policia.RecibirGolpeRegla();
-
-            Debug.Log("[Regla] ¡Policía aturdido durante 4 segundos!");
-
-            return;
-        }
     }
 
     private void GolpearRector(AtaqueManos puno)

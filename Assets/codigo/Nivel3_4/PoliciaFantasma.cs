@@ -33,7 +33,7 @@ public class PoliciaFantasma : MonoBehaviour
     [SerializeField] private float velocidadPersecucion = 3f;
 
     [Header("Aturdimiento")]
-    [SerializeField] private float duracionAturdimiento = 4f;
+    [SerializeField] private float duracionAturdimiento = 12f;
 
     public Estado EstadoActual {get; private set;}
 
@@ -248,10 +248,13 @@ public class PoliciaFantasma : MonoBehaviour
     }
 
     public void RecibirGolpeRegla()
-    {
+    { 
+        Debug.Log("El policia recibio un golpe de la regla");
+
         finAturdimiento = Time.time + duracionAturdimiento;
 
         CambiarEstado(Estado.Aturdido);
+        Debug.Log("Estado actual del policia: " + EstadoActual);
     }     
 
     private bool VeAlJugador()
