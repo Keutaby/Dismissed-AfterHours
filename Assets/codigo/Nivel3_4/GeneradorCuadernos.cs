@@ -42,7 +42,5 @@ public class GeneradorCuadernos : MonoBehaviour
                 punto.localRotation
             );
         }
-
-        Debug.Log("Se generaron" + cantidadCuadernos + "cuadernos");
     }
 }

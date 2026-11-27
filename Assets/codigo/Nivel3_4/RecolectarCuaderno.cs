@@ -11,8 +11,7 @@ public class RecolectarCuaderno : MonoBehaviour
         if(other.CompareTag("jugador") || other.transform.root.CompareTag("jugador"))
         {
             recolectado = true;
-
-            Debug.Log("Cuaderno Recolectado!!");
+            AudioRecolectables.Instance?.ReproducirSonido();
             ContadorCuadernos.Instance.AgregarCuaderno();
             Destroy(gameObject);
         }

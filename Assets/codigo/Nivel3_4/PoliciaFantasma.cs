@@ -249,12 +249,10 @@ public class PoliciaFantasma : MonoBehaviour
 
     public void RecibirGolpeRegla()
     { 
-        Debug.Log("El policia recibio un golpe de la regla");
 
         finAturdimiento = Time.time + duracionAturdimiento;
 
         CambiarEstado(Estado.Aturdido);
-        Debug.Log("Estado actual del policia: " + EstadoActual);
     }     
 
     private bool VeAlJugador()

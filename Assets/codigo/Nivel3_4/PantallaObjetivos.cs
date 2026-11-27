@@ -23,7 +23,6 @@ public class PantallaObjetivos : MonoBehaviour
 
     private void Start()
     {
-        // Ocultar ambos objetivos al iniciar
         grupoTareas.alpha = 0;
         grupoTareas.interactable = false;
         grupoTareas.blocksRaycasts = false;
@@ -35,7 +34,7 @@ public class PantallaObjetivos : MonoBehaviour
         canvasObjetivoTareas.SetActive(false);
         canvasObjetivoProyecto.SetActive(false);
 
-        // Conectarse al GameManager
+        //coneccion al game manager
         if (GameManager3_4.Instance != null)
         {
             Debug.Log("¡PantallaObjetivos encontró al GameManager!");
@@ -58,7 +57,6 @@ public class PantallaObjetivos : MonoBehaviour
 
     private void MostrarObjetivo(GameManager3_4.Estados3_4 estado)
     {
-        Debug.Log("PantallaObjetivos recibió el estado: " + estado);
 
         if (estado == GameManager3_4.Estados3_4.BusquedaGameplayNvl3)
         {
@@ -92,7 +90,6 @@ public class PantallaObjetivos : MonoBehaviour
             StopCoroutine(mensajeActual);
         }
 
-        // Ocultar el objetivo anterior
         canvasObjetivoTareas.SetActive(false);
         canvasObjetivoProyecto.SetActive(false);
 
@@ -118,10 +115,8 @@ public class PantallaObjetivos : MonoBehaviour
             CambiarAlpha(grupo, 0, 1)
         );
 
-        // Mantener visible
         yield return new WaitForSeconds(duracionMensaje);
 
-        // Desaparecer suavemente
         yield return StartCoroutine(
             CambiarAlpha(grupo, 1, 0)
         );

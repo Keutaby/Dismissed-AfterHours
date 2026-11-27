@@ -15,7 +15,7 @@ public class RecolectarProyecto : MonoBehaviour
         {
             recolectado = true;
 
-            Debug.Log("¡Proyecto recolectado!");
+            AudioRecolectables.Instance?.ReproducirSonido();
 
             ContadorProyectos.Instance.AgregarProyecto();
 

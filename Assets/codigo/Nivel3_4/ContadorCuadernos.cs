@@ -30,13 +30,9 @@ public class ContadorCuadernos : MonoBehaviour
         ActualizarTexto();
         MostrarContador();
 
-        Debug.Log("Cuadernos: " +
-            cuadernosRecolectados + "/" + totalCuadernos);
 
         if (cuadernosRecolectados >= totalCuadernos)
         {
-            Debug.Log("¡Todos los cuadernos recolectados!");
-
             GameManager3_4.Instance.CambiarEstado(GameManager3_4.Estados3_4.TransicionNvl4);
         }
     }

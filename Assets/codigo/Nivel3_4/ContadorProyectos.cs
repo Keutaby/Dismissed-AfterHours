@@ -29,12 +29,9 @@ public class ContadorProyectos : MonoBehaviour
         ActualizarTexto();
         MostrarContador();
 
-        Debug.Log("Proyectos: " +
-            proyectosRecolectados + "/" + totalProyectos);
 
         if (proyectosRecolectados >= totalProyectos)
         {
-            Debug.Log("¡Todos los proyectos recolectados!");
 
             GameManager3_4.Instance.CambiarEstado(GameManager3_4.Estados3_4.TransicionNvl5);
 

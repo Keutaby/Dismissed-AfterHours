@@ -38,11 +38,18 @@ public class GameManager3_4 : MonoBehaviour
     [Header("EnemigosNivel4")]
     public GameObject[] enemigosNivel4;
 
-    [Header("IntroducciónTemporalblabla")]
-    public float duracionIntro = 5f;
+    [Header("Introduccion Profesor")]
+    public AudioSource audioProfesor;
+    public Animator animatorProfesor;
+    public GameObject profesor;
+
+    public float duracionAnimacionRetirada = 3f;
 
     [Header("Transicion Nivel 4")]
     public float duracionTransicion = 3f;
+    [Header("Audio Transición Nivel 4")]
+    public AudioSource audioTransicionNivel4;
+    public ControladorProfesor controladorProfesor;
     
 
     void Awake()
@@ -72,34 +79,57 @@ public class GameManager3_4 : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Estado Actual: " + State);
         CambiarEstado(Estados3_4.DialogoProfesorIntro);
         StartCoroutine(IniciarNivel3());
     } 
 
     private IEnumerator IniciarNivel3()
     {
-        Debug.Log("El profesor está presentando el nivel...");
 
-        yield return new WaitForSeconds(duracionIntro);
+        if (audioProfesor != null)
+        {
+            audioProfesor.Play();
+
+            yield return new WaitWhile(() => audioProfesor.isPlaying);
+        }
 
         CambiarEstado(Estados3_4.RetiradaProfesorIntro);
 
-        Debug.Log("El profesor se está retirando...");
+        if (animatorProfesor != null)
+        {
+            animatorProfesor.Play("SalidaIntroMaestro");
+        }
 
-        yield return new WaitForSeconds(2f);
+
+        yield return new WaitForSeconds(duracionAnimacionRetirada);
+
+        if (profesor != null)
+        {
+            profesor.SetActive(false);
+        }
 
         CambiarEstado(Estados3_4.BusquedaGameplayNvl3);
 
-        Debug.Log("¡Comienza la búsqueda de cuadernos!");
     }
+
 
     private IEnumerator TransicionNivel4()
     {
-        Debug.Log("Nivel 3 completado, dale nivel 4");
-        yield return new WaitForSeconds(duracionTransicion);
+
+        // 1. Reproducir audio de transición
+        if (audioTransicionNivel4 != null)
+        {
+            audioTransicionNivel4.Play();
+
+            // Esperar hasta que termine el audio
+            yield return new WaitWhile(() => audioTransicionNivel4.isPlaying);
+        }
+
+
+        // 3. Iniciar Gameplay del nivel 4
         CambiarEstado(Estados3_4.GameplayNvl4);
     }
+
 
     public void CambiarEstado(Estados3_4 nuevoEstado)
     {
@@ -107,8 +137,6 @@ public class GameManager3_4 : MonoBehaviour
         {
             return;
         }
-
-        Debug.Log("Cambio de estado " +State + "a" + nuevoEstado);
         State = nuevoEstado;
         OnGameStateChanged?.Invoke(State);
 
@@ -127,6 +155,7 @@ public class GameManager3_4 : MonoBehaviour
         {
             StartCoroutine(TransicionNivel4());
         }
+
 
         if (State == Estados3_4.GameplayNvl4)
         {
@@ -152,6 +181,15 @@ public class GameManager3_4 : MonoBehaviour
                 }
             }
 
+            if (controladorProfesor != null)
+            {
+                controladorProfesor.IniciarAcecho();
+            }
+            else
+            {
+                Debug.LogError("No se asignóel controlador profesro");
+            }
+
             if (generadorProyectos != null)
             {
                 generadorProyectos.GenerarProyectos();
@@ -162,14 +200,13 @@ public class GameManager3_4 : MonoBehaviour
                 Debug.LogError ("Nose asigno el generador de proyectinis");
             }
 
-            Debug.Log("Los muertos vivientes ya recorren el nivel 4");
-            Debug.Log("Comienza el gameplay! NIVEL 4 #########");
         }
 
         if (State == Estados3_4.TransicionNvl5)
         {
-            Debug.Log("UY, vas con el boss final!!");
             SceneManager.LoadScene("Nivel5");
         }
+
+
     }
 }
