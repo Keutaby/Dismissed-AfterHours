@@ -16,6 +16,8 @@ public class LectorTarjeta : MonoBehaviour
         usado = true;
         if (sonidoAcceso != null) sonidoAcceso.Play();
         Debug.Log("[Lector] Tarjeta aceptada, cargando " + escenaSiguiente);
+        PlayerPrefs.SetString("UltimaEscena", escenaSiguiente);
+        PlayerPrefs.Save();
         SceneManager.LoadScene(escenaSiguiente);
     }
 }

@@ -11,19 +11,19 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/prueba ordas.unity
     guid: 697e5ecab9545b14bb63b520b7966d76
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Intro.unity
     guid: 563daaf01ab657a479ee845bb5c98d77
   - enabled: 1
     path: Assets/Scenes/Nivel1.unity
     guid: bcc5188b74fff46a0a4f8ecc5f9f920a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nivel2.unity
     guid: 40eb46bf7e0b140b281491065a9b33fb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nivel4.unity
     guid: a088e15a7aab74df894790222cc39f65
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Nivel5.unity
     guid: 72276402ab8e74297b7377612337b3ad
   m_configObjects:

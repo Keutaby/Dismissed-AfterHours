@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -14,22 +14,22 @@ public class FantasmaAmigable : MonoBehaviour
     [SerializeField] private TMP_Text textoUI;
     [SerializeField] private OrdasController ordas;       // desmarca "Iniciar Al Empezar" en ese script
 
-    [Header("Di·logos (una lÌnea por elemento)")]
+    [Header("Di√°logos (una l√≠nea por elemento)")]
     [SerializeField, TextArea(2, 5)] private string[] dialogoInicio;
     [SerializeField, TextArea(2, 5)] private string[] dialogoFinal;
 
-    [Header("ActivaciÛn")]
+    [Header("Activaci√≥n")]
     [SerializeField] private float distanciaActivacion = 3f;
     [SerializeField] private bool mirarAlJugador = true;
 
-    [Header("M·quina de escribir")]
+    [Header("M√°quina de escribir")]
     [SerializeField] private float letrasPorSegundo = 30f;
     [SerializeField] private float pausaPuntuacion = 0.12f;
     [SerializeField] private AudioSource sonidoLetra;     // opcional
 
     [Header("Avanzar")]
     [SerializeField] private InputActionReference botonSiguiente;
-    [SerializeField] private float segundosAutoAvance = 0f;   // 0 = solo con el botÛn; 3 = avanza solo a los 3 s
+    [SerializeField] private float segundosAutoAvance = 0f;   // 0 = solo con el bot√≥n; 3 = avanza solo a los 3 s
 
     [Header("Final")]
     [SerializeField] private string escenaSiguiente = "Nivel4";
@@ -39,6 +39,10 @@ public class FantasmaAmigable : MonoBehaviour
     [SerializeField] private UnityEvent alTerminarInicio;
     [SerializeField] private UnityEvent alTerminarFinal;
 
+    [Header("Animaci√≥n")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string triggerCelebrar = "Celebrar";   // debe llamarse igual que en el Animator
+
     private Fase fase = Fase.Esperando;
     private Transform camara;
     private bool dialogoActivo;
@@ -47,6 +51,7 @@ public class FantasmaAmigable : MonoBehaviour
 
     void Start()
     {
+        if (animator == null) animator = GetComponentInChildren<Animator>();
         if (Camera.main != null) camara = Camera.main.transform;
         if (panelDialogo != null) panelDialogo.SetActive(false);
         if (ordas != null) ordas.todasCompletadas += OnOrdasCompletas;
@@ -119,21 +124,24 @@ public class FantasmaAmigable : MonoBehaviour
 
     private void OnOrdasCompletas()
     {
-        if (fase == Fase.Ordas) fase = Fase.EsperandoRegreso;   // el di·logo final sale cuando estÈs cerca
+        if (fase == Fase.Ordas) fase = Fase.EsperandoRegreso;   // el di√°logo final sale cuando est√©s cerca
     }
 
     private IEnumerator FlujoFinal()
     {
         fase = Fase.DialogoFinal;
+        if (animator != null) animator.SetTrigger(triggerCelebrar);
         yield return Reproducir(dialogoFinal);
         alTerminarFinal?.Invoke();
 
         fase = Fase.Terminado;
         yield return new WaitForSeconds(retrasoAntesDeCargar);
+
+        PlayerPrefs.SetString("UltimaEscena", escenaSiguiente);   // ‚Üê guarda el progreso
+        PlayerPrefs.Save();
         SceneManager.LoadScene(escenaSiguiente);
     }
-
-    // ---------- Di·logo ----------
+    // ---------- Di√°logo ----------
 
     private IEnumerator Reproducir(string[] lineas)
     {
@@ -162,7 +170,7 @@ public class FantasmaAmigable : MonoBehaviour
 
         for (int i = 1; i <= total; i++)
         {
-            if (pulsado)   // un toque completa la lÌnea al instante
+            if (pulsado)   // un toque completa la l√≠nea al instante
             {
                 pulsado = false;
                 break;

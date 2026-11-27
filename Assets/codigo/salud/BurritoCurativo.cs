@@ -19,18 +19,40 @@ public class BurritoCurativo : MonoBehaviour
     private void OnAgarrado(SelectEnterEventArgs args)
     {
         if (consumido) return;
-        consumido = true;
 
-        GameObject jugador = GameObject.FindGameObjectWithTag("jugador");
-        SistemaSalud salud = jugador != null ? jugador.GetComponent<SistemaSalud>() : null;
-        if (salud != null) salud.Curar(curacion);
-        else Debug.LogWarning("[Burrito] No encontré el SistemaSalud del jugador (tag 'jugador')");
+        // El jugador es quien lo agarró: sube desde su mano hasta el SistemaSalud
+        SistemaSalud salud = args.interactorObject.transform.GetComponentInParent<SistemaSalud>();
+
+        if (salud == null)
+        {
+            GameObject jugador = GameObject.FindGameObjectWithTag("jugador");
+            if (jugador == null)
+            {
+                Debug.LogWarning("[Burrito] No existe ningún objeto con el tag 'jugador'");
+                return;
+            }
+
+            salud = jugador.GetComponentInChildren<SistemaSalud>();
+            if (salud == null)
+            {
+                Debug.LogWarning("[Burrito] '" + jugador.name + "' tiene el tag, pero no tiene SistemaSalud (ni en sus hijos)");
+                return;
+            }
+        }
+
+        consumido = true;
+        salud.CurarCompletamente();   // o salud.Curar(curacion)
 
         if (sonido != null) sonido.Play();
 
-        // Desaparece de la vista pero deja terminar el sonido
+        // Frena el sube y baja del padre para que no pelee con la mano
+        MovimientoVertical mov = GetComponentInParent<MovimientoVertical>();
+        if (mov != null) mov.enabled = false;
+
         foreach (Renderer r in GetComponentsInChildren<Renderer>()) r.enabled = false;
         foreach (Collider c in GetComponentsInChildren<Collider>()) c.enabled = false;
-        Destroy(gameObject, tiempoAntesDeDesaparecer);
+
+        GameObject raiz = mov != null ? mov.gameObject : gameObject;
+        Destroy(raiz, tiempoAntesDeDesaparecer);
     }
 }

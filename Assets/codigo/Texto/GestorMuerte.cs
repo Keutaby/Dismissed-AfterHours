@@ -6,11 +6,21 @@ using UnityEngine.SceneManagement;
 public class GestorMuerte : MonoBehaviour
 {
     [Header("UI de Muerte")]
-    [SerializeField] private GameObject canvasMuerte;      // el CanvasMuerte (puede empezar apagado)
-    [SerializeField] private CanvasGroup fondo;            // opcional: fondo negro
+    [SerializeField] private GameObject canvasMuerte;
+    [SerializeField] private CanvasGroup fondo;
     [SerializeField] private CanvasGroup texto1;
     [SerializeField] private CanvasGroup texto2;
-    [SerializeField] private CanvasGroup botonReiniciar;   // el CanvasGroup del botón (o su padre)
+    [SerializeField] private CanvasGroup botonReiniciar;
+
+    [Header("Pantalla negra total")]
+    [SerializeField] private bool apagarElMundo = true;
+    [SerializeField] private LayerMask capasVisiblesAlMorir;   // opcional: capa de los mandos/rayos
+    [SerializeField] private bool canvasSigueCabeza = true;
+    [SerializeField] private float distanciaCanvas = 1.5f;
+
+    [Header("Luz del botón")]
+    [SerializeField] private Light luzBoton;        // la luz que metiste dentro del botón
+    [SerializeField] private float intensidadLuz = 2f;
 
     [Header("Tiempos")]
     [SerializeField] private float duracionFondo = 1f;
@@ -18,12 +28,19 @@ public class GestorMuerte : MonoBehaviour
     [SerializeField] private float tiempoVisible = 1.5f;
 
     [Header("Opcional")]
-    [SerializeField] private bool pausarJuego = true;      // congela fantasmas mientras sale el mensaje
+    [SerializeField] private bool pausarJuego = true;
     [SerializeField] private AudioSource sonidoMuerte;
+
+    // --- Bandera "vengo de una muerte": solo vale en la escena que se reinició ---
+    private static int escenaReiniciada = -2;
+    public static bool ReinicioPorMuerte
+    {
+        get => escenaReiniciada == SceneManager.GetActiveScene().buildIndex;
+        set => escenaReiniciada = value ? SceneManager.GetActiveScene().buildIndex : -2;
+    }
 
     private SistemaSalud sistemaSalud;
     private bool yaMuerto;
-    public static bool ReinicioPorMuerte = false;
 
     void Awake() => sistemaSalud = GetComponent<SistemaSalud>();
 
@@ -32,7 +49,7 @@ public class GestorMuerte : MonoBehaviour
 
     void Start()
     {
-        Time.timeScale = 1f;   // por si la escena anterior quedó pausada
+        Time.timeScale = 1f;
         if (canvasMuerte != null) canvasMuerte.SetActive(false);
     }
 
@@ -45,15 +62,20 @@ public class GestorMuerte : MonoBehaviour
 
     private IEnumerator SecuenciaMuerte()
     {
+        if (luzBoton != null) luzBoton.enabled = false;
         if (sonidoMuerte != null) sonidoMuerte.Play();
 
-        // Todo invisible antes de encender el canvas
         Ocultar(fondo);
         Ocultar(texto1);
         Ocultar(texto2);
         Ocultar(botonReiniciar);
 
-        if (canvasMuerte != null) canvasMuerte.SetActive(true);
+        if (apagarElMundo) ApagarMundo();
+        if (canvasMuerte != null)
+        {
+            if (canvasSigueCabeza) AnclarCanvasALaCabeza();
+            canvasMuerte.SetActive(true);
+        }
         if (pausarJuego) Time.timeScale = 0f;
 
         yield return Fade(fondo, 0f, 1f, duracionFondo);
@@ -68,13 +90,34 @@ public class GestorMuerte : MonoBehaviour
         yield return Fade(texto2, 0f, 1f, duracionFade);
         yield return new WaitForSecondsRealtime(tiempoVisible);
 
-        // Al final aparece el botón y ya se puede pulsar
         if (botonReiniciar != null)
-        {
-            botonReiniciar.blocksRaycasts = true;
-            botonReiniciar.interactable = true;
-            yield return Fade(botonReiniciar, 0f, 1f, duracionFade);
-        }
+            yield return AparecerBoton();
+    }
+
+    // La cámara solo dibuja la UI sobre fondo negro: el edificio desaparece
+    private void ApagarMundo()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        int mascara = capasVisiblesAlMorir.value;
+        mascara |= 1 << LayerMask.NameToLayer("UI");
+        if (canvasMuerte != null) mascara |= 1 << canvasMuerte.layer;
+
+        cam.clearFlags = CameraClearFlags.SolidColor;
+        cam.backgroundColor = Color.black;
+        cam.cullingMask = mascara;
+    }
+
+    private void AnclarCanvasALaCabeza()
+    {
+        Camera cam = Camera.main;
+        if (cam == null) return;
+
+        Transform t = canvasMuerte.transform;
+        t.SetParent(cam.transform, false);
+        t.localPosition = new Vector3(0f, 0f, distanciaCanvas);
+        t.localRotation = Quaternion.identity;
     }
 
     private void Ocultar(CanvasGroup g)
@@ -85,7 +128,6 @@ public class GestorMuerte : MonoBehaviour
         g.interactable = false;
     }
 
-    // Usa tiempo real, así funciona aunque el juego esté pausado
     private IEnumerator Fade(CanvasGroup g, float inicio, float fin, float duracion)
     {
         if (g == null) yield break;
@@ -100,7 +142,33 @@ public class GestorMuerte : MonoBehaviour
         }
         g.alpha = fin;
     }
+    // El botón y su luz aparecen juntos
+    private IEnumerator AparecerBoton()
+    {
+        botonReiniciar.blocksRaycasts = true;
+        botonReiniciar.interactable = true;
 
+        if (luzBoton != null)
+        {
+            luzBoton.intensity = 0f;
+            luzBoton.enabled = true;
+        }
+
+        float t = 0f;
+        while (t < duracionFade)
+        {
+            t += Time.unscaledDeltaTime;
+            float k = Mathf.Clamp01(t / duracionFade);
+
+            botonReiniciar.alpha = k;
+            if (luzBoton != null) luzBoton.intensity = Mathf.Lerp(0f, intensidadLuz, k);
+
+            yield return null;
+        }
+
+        botonReiniciar.alpha = 1f;
+        if (luzBoton != null) luzBoton.intensity = intensidadLuz;
+    }
     // La llama el botón desde el Inspector
     public void BotonReiniciar()
     {
